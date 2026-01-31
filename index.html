@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Hệ thống Kiểm phiếu Tín nhiệm</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+/* Layout + styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  /* Cho phép cuộn trên thiết bị nhỏ (trước đây là overflow:hidden) */
+  overflow: auto;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #f1f5f9;
+}
+
+/* Active states cho các nút chọn */
+.vote-btn.active-0{background:#10b981;color:#fff}
+.vote-btn.active-1{background:#ef4444;color:#fff}
+.vote-btn.active-2{background:#6b7280;color:#fff}
+
+.scroll-area{flex:1;overflow-y:auto;padding:1rem}
+
+/* Bảng kết quả */
+.result-table{border-collapse:collapse;width:100%;border:2px solid #000}
+.result-table th,.result-table td{border:1px solid #000;padding:6px;text-align:center}
+.candidate-name-cell{text-align:left;font-weight:700}
+
+/* Tác giả */
+.author-fixed{
+  position:fixed;
+  bottom:calc(10px + env(safe-area-inset-bottom));
+  left:50%;
+  transform:translateX(-50%);
+  font-size:12px;
+  font-weight:700;
+  opacity:0.4;
+  pointer-events:none;
+  z-index:999;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+/* Nút cố định ở 2 góc dưới */
+.fixed-corner-btn{
+  position:fixed;
+  bottom:calc(12px + env(safe-area-inset-bottom));
+  z-index:10010;
+  padding:0.6rem 1rem;
+  border-radius:0.75rem;
+  color:#fff;
+  font-weight:700;
+  box-shadow:0 6px 18px rgba(2,6,23,0.15);
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  white-space:nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* trái và phải */
+.fixed-confirm{ left:calc(12px + env(safe-area-inset-left)); }
+.fixed-finish{ right:calc(12px + env(safe-area-inset-right)); }
+
+/* Ở màn hình rất nhỏ, giảm padding và kích thước chữ để tránh che content */
+@media (max-width: 420px) {
+  .fixed-corner-btn { padding:0.45rem 0.75rem; font-size:0.9rem; border-radius:0.6rem; }
+  .author-fixed { font-size:11px; }
+}
+
+/* Footer vẫn có start button (nếu cần) */
+footer { position:relative; }
+</style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-3">
+
+<div class="w-full max-w-4xl bg-white shadow-2xl rounded-2xl flex flex-col min-h-[80vh]">
+
+<header class="p-4 border-b text-center">
+  <h1 class="font-black text-xl">KIỂM PHIẾU TÍN NHIỆM</h1>
+</header>
+
+<main class="scroll-area">
+
+<section id="step-1">
+  <input id="input-name" class="border px-3 py-2 rounded w-full" placeholder="Họ và tên">
+  <button onclick="addCandidate()" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded w-full">THÊM</button>
+  <ul id="list-names" class="mt-4"></ul>
+</section>
+
+<section id="step-2" class="hidden">
+  <div class="font-bold mb-2">PHIẾU: <span id="idx-display"></span></div>
+  <div id="vote-list"></div>
+</section>
+
+<section id="step-3" class="hidden">
+  <h2 class="font-black text-lg mb-2 text-center">KẾT QUẢ</h2>
+  <table class="result-table">
+    <thead>
+      <tr>
+        <th>STT</th><th>Ứng cử viên</th>
+        <th>Tín nhiệm</th><th>Không TN</th><th>Không HL</th><th>Tổng</th>
+      </tr>
+    </thead>
+    <tbody id="table-results"></tbody>
+  </table>
+
+  <!-- XEM LẠI PHIẾU -->
+  <div class="mt-6 p-4 bg-slate-50 rounded-xl">
+    <h3 class="font-bold mb-2">XEM LẠI PHIẾU ĐÃ TÍCH</h3>
+    <div class="flex gap-2">
+      <input id="review-input" type="number" class="border px-3 py-2 rounded w-32" placeholder="Số phiếu">
+      <button onclick="reviewBallot()" class="bg-emerald-600 text-white px-4 rounded">XEM</button>
+    </div>
+    <div id="review-result" class="mt-3 text-sm"></div>
+  </div>
+
+  <!-- RESET -->
+  <div class="mt-6 text-center">
+    <button onclick="resetAll()" class="bg-red-600 text-white px-6 py-3 rounded-xl font-bold">
+      RESET – KIỂM TRA MỚI
+    </button>
+  </div>
+</section>
+
+</main>
+
+<footer class="p-4 border-t">
+  <button onclick="start()" id="btn-start" class="hidden bg-emerald-600 text-white w-full py-3 rounded">BẮT ĐẦU</button>
+  <!-- Lưu ý: nút XÁC NHẬN và KẾT THÚC đã được di chuyển ra góc cố định -->
+</footer>
+
+<!-- Nút XÁC NHẬN (góc trái dưới) -->
+<button id="btn-confirm" class="fixed-corner-btn fixed-confirm bg-blue-600 hidden" aria-label="Xác nhận phiếu">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 111.414-1.414L8.414 12.172l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+  </svg>
+  <span>XÁC NHẬN</span>
+</button>
+
+<!-- Nút KẾT THÚC (góc phải dưới) -->
+<button id="btn-finish" class="fixed-corner-btn fixed-finish bg-red-500 hidden" aria-label="Kết thúc kiểm phiếu">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path d="M6 2a1 1 0 00-1 1v2H4a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1V3a1 1 0 00-1-1H6zM7 5h6v1H7V5z" />
+  </svg>
+  <span>KẾT THÚC</span>
+</button>
+
+<script>
+let state={
+  candidates:[],
+  voteIndex:1,
+  step:1,
+  selections:{},
+  ballots:[]
+};
+
+function save(){localStorage.setItem("kp",JSON.stringify(state));render()}
+function load(){const d=localStorage.getItem("kp");if(d)state=JSON.parse(d);render()}
+
+function render(){
+  ["step-1","step-2","step-3"].forEach((id,i)=>{
+    document.getElementById(id).classList.toggle("hidden",state.step!==i+1)
+  })
+  // Start button (ở footer)
+  btn("btn-start",state.step==1 && state.candidates.length > 0)
+
+  // Các nút cố định góc dưới
+  btn("btn-confirm",state.step==2)
+  btn("btn-finish",state.step==2)
+
+  document.getElementById("idx-display").innerText=state.voteIndex
+
+  document.getElementById("list-names").innerHTML=state.candidates.map((c,i)=>`
+    <li>${i+1}. ${c.name}</li>`).join("")
+
+  document.getElementById("vote-list").innerHTML=state.candidates.map(c=>`
+    <div class="mb-2">
+      <b>${c.name}</b>
+      <div class="grid grid-cols-3 gap-1">
+        ${voteBtn(c.id,0,"TN")}
+        ${voteBtn(c.id,1,"K.TN")}
+        ${voteBtn(c.id,2,"K.HL")}
+      </div>
+    </div>`).join("")
+
+  document.getElementById("table-results").innerHTML=state.candidates.map((c,i)=>{
+    const t=Math.max(state.voteIndex-1,1)
+    // ensure percentages safe when t=0 (but t at least 1)
+    return `<tr>
+      <td>${i+1}</td>
+      <td class="candidate-name-cell">${c.name}</td>
+      <td>${c.scores[0]} (${(c.scores[0]/t*100).toFixed(1)}%)</td>
+      <td>${c.scores[1]} (${(c.scores[1]/t*100).toFixed(1)}%)</td>
+      <td>${c.scores[2]} (${(c.scores[2]/t*100).toFixed(1)}%)</td>
+      <td>${t}</td>
+    </tr>`
+  }).join("")
+}
+
+function addCandidate(){
+  const v=input("input-name").value.trim();if(!v)return
+  state.candidates.push({id:Date.now(),name:v,scores:{0:0,1:0,2:0}})
+  input("input-name").value=""
+  save()
+}
+function start(){
+  state.step=2
+  state.candidates.forEach(c=>state.selections[c.id]=null)
+  save()
+}
+function pick(id,v){state.selections[id]=v;render()}
+
+function confirmVote(){
+  if(state.candidates.some(c=>state.selections[c.id]==null)) return alert("Chưa đủ lựa chọn cho tất cả ứng cử viên!")
+  const ballot={}
+  state.candidates.forEach(c=>{
+    const v=state.selections[c.id]
+    c.scores[v]++
+    ballot[c.name]=["Tín nhiệm","Không tín nhiệm","Không hợp lệ"][v]
+  })
+  state.ballots.push(ballot)
+  state.voteIndex++
+  state.candidates.forEach(c=>state.selections[c.id]=null)
+  save()
+}
+
+// finish: thêm logic hỏi xác nhận trước khi chuyển sang step 3
+function finish(){
+  // Nếu đang ở step 2, hỏi người dùng
+  if(state.step===2){
+    // Nếu chưa có phiếu nào, cảnh báo trước
+    const totalBallots = state.ballots.length
+    let message = "Bạn có chắc muốn kết thúc kiểm phiếu và xem kết quả?"
+    message += "\\n\\nTổng phiếu đã lưu: " + totalBallots
+    message += "\\nSau khi kết thúc bạn sẽ được chuyển tới màn hình KẾT QUẢ."
+    if(!confirm(message)) return
+  }
+  state.step=3; save()
+}
+
+function reviewBallot(){
+  const n=parseInt(input("review-input").value)
+  const b=state.ballots[n-1]
+  if(!b) return alert("Không có phiếu này")
+  input("review-result").innerHTML=Object.entries(b).map(
+    ([k,v])=>`• <b>${k}</b>: ${v}`
+  ).join("<br>")
+}
+
+function resetAll(){
+  if(!confirm("Xóa toàn bộ dữ liệu để kiểm phiếu mới?"))return
+  localStorage.removeItem("kp")
+  state={candidates:[],voteIndex:1,step:1,selections:{},ballots:[]}
+  save()
+}
+
+function voteBtn(id,v,t){
+  return `<button onclick="pick(${id},${v})"
+  class="vote-btn py-1 rounded ${state.selections[id]==v?'active-'+v:'bg-slate-200'}">${t}</button>`
+}
+function input(id){return document.getElementById(id)}
+function btn(id,ok){const el=document.getElementById(id); if(!el) return; el.classList.toggle("hidden",!ok)}
+
+// Hook các nút cố định để gọi đúng hàm
+document.getElementById("btn-confirm").addEventListener("click", confirmVote)
+document.getElementById("btn-finish").addEventListener("click", finish)
+
+// ===== ENTER ĐỂ THÊM + XEM PHIẾU =====
+document.addEventListener("keydown",function(e){
+  if(e.key!=="Enter") return;
+
+  // Enter để thêm ứng cử viên
+  const nameInput=document.getElementById("input-name");
+  if(document.activeElement===nameInput){
+    e.preventDefault();
+    addCandidate();
+    return;
+  }
+
+  // Enter để xem lại phiếu
+  const reviewInput=document.getElementById("review-input");
+  if(reviewInput && document.activeElement===reviewInput){
+    e.preventDefault();
+    reviewBallot();
+  }
+});
+
+window.onload=load
+</script>
+
+<div class="author-fixed">
+  Tác giả: <b>Trần Trọng Kim - ĐT: 0964567806</b>
+</div>
+
+</body>
+</html>
