@@ -772,8 +772,8 @@ Hãy viết nhận xét cho từng học sinh theo đúng ID và trả về đú
               </header>
 
               <div className="w-full px-4 md:px-8 py-6 flex flex-wrap gap-4 items-stretch">
-                <SectionBox label="📅 Năm học" items={years} selectedId={selectedYearId} onSelect={setSelectedYearId} type="Chọn year" />
-                <SectionBox label="🏫 Lớp học" items={classes} selectedId={selectedClassId} onSelect={setSelectedClassId} type="Chọn class" />
+                <SectionBox label="📅 Năm học" items={years} selectedId={selectedYearId} onSelect={setSelectedYearId} type="year" />
+                <SectionBox label="🏫 Lớp học" items={classes} selectedId={selectedClassId} onSelect={setSelectedClassId} type="class" />
                 <SectionBox label="📆 Tháng" items={months} selectedId={selectedMonthId} onSelect={setSelectedMonthId} type="month" />
                 {viewMode === 'subject' ? (
                   <SectionBox label="📚 Môn học" items={subjects} selectedId={selectedSubId} onSelect={setSelectedSubId} type="subject" />
@@ -986,7 +986,7 @@ Hãy viết nhận xét cho từng học sinh theo đúng ID và trả về đú
                       <div className="p-3 bg-emerald-100 text-emerald-600 rounded-2xl text-2xl">🔑</div>
                       <h3 className="text-xl font-black uppercase text-slate-800">Vui long nhập API KEY</h3>
                     </div>
-                    <p className="text-sm text-slate-600 mb-4">Lấy API Key: <"Liên hệ 0964567806" target="_blank" className="text-blue-600 underline">Liên hệ 0964567806</a></p>
+                    <p className="text-sm text-slate-600 mb-4">Lấy API Key: <"" target="_blank" className="text-blue-600 underline">Liên hệ 0964567806</a></p>
                     <input type="password" className="w-full p-4 bg-slate-50 border-2 border-slate-300 rounded-xl mb-6 font-mono text-sm outline-none" placeholder="Nhập API Key..." value={apiKey} onChange={e => setApiKey(e.target.value)} />
                     <div className="flex gap-4">
                       <button onClick={() => setShowApiKeyModal(false)} className="flex-1 py-4 font-black text-slate-400 uppercase text-[10px]">Đóng</button>
