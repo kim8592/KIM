@@ -932,7 +932,7 @@ ${JSON.stringify(studentContexts)}
 Hãy viết nhận xét cho từng học sinh theo đúng ID và trả về đúng ${studentContexts.length} nhận xét.`;
 
     try {
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -1069,7 +1069,7 @@ HƯỚNG DẪN:
 2. Không nêu tên môn học
 3. Viết tự nhiên, cụ thể, dễ hiểu`;
 
-        const resRetry = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+        const resRetry = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
