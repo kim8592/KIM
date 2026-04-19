@@ -712,7 +712,7 @@ const App = () => {
 RULES:
 1. Start with "Em"
 2. Do NOT mention student names
-3. Do NOT use "co", "thay", "giao vien" (teacher words)
+3. Do NOT use "cô", "thay", "giao vien" (teacher words)
 4. Write DIFFERENT comments for each student
 5. Be specific about skills and knowledge
 6. Each comment should be 1-2 sentences
@@ -732,7 +732,7 @@ Write comments in format: [StudentName]|||[Comment]
 IMPORTANT:
 - Different comment for each student
 - No student names in comments
-- No teacher words (co, thay, giao vien)
+- No teacher words (cô, thay, giao vien)
 - Specific skills, not generic`;
 
     console.log('📢 Calling Gemini API...');
