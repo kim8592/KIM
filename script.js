@@ -993,54 +993,53 @@ IMPORTANT:
       {toast && <Toast message={toast.message} type={toast.type} icon={toast.icon} />}
       
       {/* HEADER */}
-    <header className="bg-indigo-900 text-white p-2 shadow-xl border-b-2 border-indigo-700 w-full sticky top-0 z-40">
-  <div className="w-full flex flex-row justify-between items-center gap-2 px-3">
+   <header className="bg-indigo-900 text-white p-2 shadow-xl border-b-2 border-indigo-700 w-full sticky top-0 z-40">
+  <div className="w-full flex flex-col justify-between items-center gap-2 px-3">
 
-    <div className="flex items-center gap-2 min-w-0">
-      <div className="p-2 bg-white/20 rounded-xl shrink-0">
-        <img src="./robot.png" className="w-7 h-7" alt="Logo" />
-      </div>
+    {/* HÀNG 1 */}
+    <div className="w-full flex flex-row justify-between items-center gap-2">
 
-      <div className="flex flex-col leading-tight min-w-0">
-        
-        {/* USER */}
-        <div onMouseLeave={()=>setShowUserMenu(false)} className="relative">
-          <button 
-            onClick={() => setShowUserMenu(!showUserMenu)} 
-            className="text-[13px] font-black text-indigo-200 hover:text-white transition truncate max-w-[160px]"
-          >
-            {user?.displayName || user?.email}
-          </button>
-
-          {showUserMenu && (
-            <div className="absolute left-0 top-full mt-1 bg-white rounded-lg shadow-2xl border border-slate-200 overflow-hidden z-50">
-              <button onClick={() => { handleChangeName(); setShowUserMenu(false); }} className="w-full text-left px-3 py-2 text-[12px] font-bold text-slate-700 hover:bg-slate-100 border-b border-slate-100 transition whitespace-nowrap">
-                ✏️ Đổi tên
-              </button>
-              <button onClick={() => { handleChangePassword(); setShowUserMenu(false); }} className="w-full text-left px-3 py-2 text-[12px] font-bold text-slate-700 hover:bg-slate-100 border-b border-slate-100 transition whitespace-nowrap">
-                🔑 Đổi mật khẩu
-              </button>
-              <button onClick={() => { handleLogout(); setShowUserMenu(false); }} className="w-full text-left px-3 py-2 text-[12px] font-bold text-red-600 hover:bg-red-50 transition whitespace-nowrap">
-                🚪 Đăng xuất
-              </button>
-            </div>
-          )}
+      <div className="flex items-center gap-2 min-w-0">
+        <div className="p-2 bg-white/20 rounded-xl shrink-0">
+          <img src="./robot.png" className="w-7 h-7" alt="Logo" />
         </div>
 
-        <h1 className="text-base font-black uppercase leading-none truncate">
-          ĐÁNH GIÁ THƯỜNG XUYÊN
-        </h1>
+        <div className="flex flex-col leading-tight min-w-0">
+          <div onMouseLeave={()=>setShowUserMenu(false)} className="relative">
+            <button 
+              onClick={() => setShowUserMenu(!showUserMenu)} 
+              className="text-[13px] font-black text-indigo-200 hover:text-white transition truncate max-w-[160px]"
+            >
+              {user?.displayName || user?.email}
+            </button>
 
-        <span className="text-indigo-300 text-[9px] font-bold uppercase italic tracking-wider truncate">
-          TỐI ƯU NHẬN XÉT HỌC SINH TIỂU HỌC BẰNG AI
-        </span>
+            {showUserMenu && (
+              <div className="absolute left-0 top-full mt-1 bg-white rounded-lg shadow-2xl border border-slate-200 overflow-hidden z-50">
+                <button onClick={() => { handleChangeName(); setShowUserMenu(false); }} className="w-full text-left px-3 py-2 text-[12px] font-bold text-slate-700 hover:bg-slate-100 border-b border-slate-100 transition whitespace-nowrap">
+                  ✏️ Đổi tên
+                </button>
+                <button onClick={() => { handleChangePassword(); setShowUserMenu(false); }} className="w-full text-left px-3 py-2 text-[12px] font-bold text-slate-700 hover:bg-slate-100 border-b border-slate-100 transition whitespace-nowrap">
+                  🔑 Đổi mật khẩu
+                </button>
+                <button onClick={() => { handleLogout(); setShowUserMenu(false); }} className="w-full text-left px-3 py-2 text-[12px] font-bold text-red-600 hover:bg-red-50 transition whitespace-nowrap">
+                  🚪 Đăng xuất
+                </button>
+              </div>
+            )}
+          </div>
+
+          <h1 className="text-base font-black uppercase leading-none truncate">
+            ĐÁNH GIÁ THƯỜNG XUYÊN
+          </h1>
+
+          <span className="text-indigo-300 text-[9px] font-bold uppercase italic tracking-wider truncate">
+            TỐI ƯU NHẬN XÉT HỌC SINH TIỂU HỌC BẰNG AI
+          </span>
+        </div>
       </div>
-    </div>
 
-    {/* RIGHT */}
-    <div className="flex flex-row items-center gap-2 flex-wrap justify-end">
-
-      <div className="flex bg-indigo-950/50 p-1 rounded-xl gap-1 items-center">
+      {/* SMAS + SAVE */}
+      <div className="flex bg-indigo-950/50 p-1 rounded-xl gap-1 items-center shrink-0">
         {['smas', 'vnedu'].map(sys => (
           <button
             key={sys}
@@ -1079,7 +1078,10 @@ IMPORTANT:
           </button>
         </div>
       </div>
+    </div>
 
+    {/* HÀNG 2 - MÔN HỌC */}
+    <div className="w-full flex justify-center">
       <div className="flex bg-indigo-950/50 p-1 rounded-xl gap-1">
         {['subject', 'competency', 'quality', 'specific'].map(m => (
           <button
@@ -1096,8 +1098,8 @@ IMPORTANT:
           </button>
         ))}
       </div>
-
     </div>
+
   </div>
 </header>
 
