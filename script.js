@@ -993,62 +993,114 @@ IMPORTANT:
       {toast && <Toast message={toast.message} type={toast.type} icon={toast.icon} />}
       
       {/* HEADER */}
-      <header className="bg-indigo-900 text-white p-1 md:p-1.5 shadow-xl border-b-2 border-indigo-700 w-full sticky top-0 z-40">
-  <div className="w-full flex flex-col lg:flex-row justify-between items-center gap-3 px-4">
-    <div className="flex items-center gap-2">
-      <div className="p-2 bg-white/20 rounded-xl">
+    <header className="bg-indigo-900 text-white p-2 shadow-xl border-b-2 border-indigo-700 w-full sticky top-0 z-40">
+  <div className="w-full flex flex-row justify-between items-center gap-2 px-3">
+
+    <div className="flex items-center gap-2 min-w-0">
+      <div className="p-2 bg-white/20 rounded-xl shrink-0">
         <img src="./robot.png" className="w-7 h-7" alt="Logo" />
       </div>
-      <div className="flex flex-col -mt-3">
-        {/* ✅ TÊN NGƯỜI DÙNG - tự giãn/thắt */}
-        <div onMouseLeave={()=>setShowUserMenu(false)} className="relative mb-1">
+
+      <div className="flex flex-col leading-tight min-w-0">
+        
+        {/* USER */}
+        <div onMouseLeave={()=>setShowUserMenu(false)} className="relative">
           <button 
             onClick={() => setShowUserMenu(!showUserMenu)} 
-            className="text-[14px] font-black text-indigo-200 hover:text-white transition max-w-[200px]"
+            className="text-[13px] font-black text-indigo-200 hover:text-white transition truncate max-w-[160px]"
           >
             {user?.displayName || user?.email}
           </button>
+
           {showUserMenu && (
-            <div className="absolute left-0 top-full mt-0 bg-white rounded-lg shadow-2xl border border-slate-200 overflow-hidden z-50">
-              <button onClick={() => { handleChangeName(); setShowUserMenu(false); }} className="w-full text-left px-3 py-2 text-[12px] font-bold text-slate-700 hover:bg-slate-100 border-b border-slate-100 transition whitespace-nowrap">✏️ Đổi tên</button>
-              <button onClick={() => { handleChangePassword(); setShowUserMenu(false); }} className="w-full text-left px-3 py-2 text-[12px] font-bold text-slate-700 hover:bg-slate-100 border-b border-slate-100 transition whitespace-nowrap">🔑 Đổi mật khẩu</button>
-              <button onClick={() => { handleLogout(); setShowUserMenu(false); }} className="w-full text-left px-3 py-2 text-[12px] font-bold text-red-600 hover:bg-red-50 transition whitespace-nowrap">🚪 Đăng xuất</button>
+            <div className="absolute left-0 top-full mt-1 bg-white rounded-lg shadow-2xl border border-slate-200 overflow-hidden z-50">
+              <button onClick={() => { handleChangeName(); setShowUserMenu(false); }} className="w-full text-left px-3 py-2 text-[12px] font-bold text-slate-700 hover:bg-slate-100 border-b border-slate-100 transition whitespace-nowrap">
+                ✏️ Đổi tên
+              </button>
+              <button onClick={() => { handleChangePassword(); setShowUserMenu(false); }} className="w-full text-left px-3 py-2 text-[12px] font-bold text-slate-700 hover:bg-slate-100 border-b border-slate-100 transition whitespace-nowrap">
+                🔑 Đổi mật khẩu
+              </button>
+              <button onClick={() => { handleLogout(); setShowUserMenu(false); }} className="w-full text-left px-3 py-2 text-[12px] font-bold text-red-600 hover:bg-red-50 transition whitespace-nowrap">
+                🚪 Đăng xuất
+              </button>
             </div>
           )}
         </div>
 
-        <h1 className="text-lg md:text-xl font-black uppercase leading-none tracking-tight">ĐÁNH GIÁ THƯỜNG XUYÊN</h1>
-        <span className="text-indigo-300 text-[9px] font-bold uppercase mt-0.5 italic tracking-wider">TỐI ƯU NHẬN XÉT HỌC SINH TIỂU HỌC BẰNG AI</span>
+        <h1 className="text-base font-black uppercase leading-none truncate">
+          ĐÁNH GIÁ THƯỜNG XUYÊN
+        </h1>
+
+        <span className="text-indigo-300 text-[9px] font-bold uppercase italic tracking-wider truncate">
+          TỐI ƯU NHẬN XÉT HỌC SINH TIỂU HỌC BẰNG AI
+        </span>
       </div>
     </div>
 
-    <div className="flex flex-col items-center gap-3">
+    {/* RIGHT */}
+    <div className="flex flex-row items-center gap-2 flex-wrap justify-end">
+
       <div className="flex bg-indigo-950/50 p-1 rounded-xl gap-1 items-center">
         {['smas', 'vnedu'].map(sys => (
-          <button key={sys} onClick={() => { setSystemMode(sys); setSelectedCriteriaId(''); setDraftData({}); }} className={`px-6 py-2.5 rounded-lg text-[11px] font-black uppercase transition-all ${systemMode === sys ? 'bg-white text-indigo-900 shadow-lg' : 'text-indigo-300 hover:text-white'}`}>
+          <button
+            key={sys}
+            onClick={() => { setSystemMode(sys); setSelectedCriteriaId(''); setDraftData({}); }}
+            className={`px-4 py-2 rounded-lg text-[11px] font-black uppercase transition-all whitespace-nowrap
+              ${systemMode === sys 
+                ? 'bg-white text-indigo-900 shadow-lg' 
+                : 'text-indigo-300 hover:text-white'}`}
+          >
             🌐 {sys}
           </button>
         ))}
-        <div className="w-px h-6 bg-indigo-700 mx-1"></div>
-        <div className="flex items-center gap-1.5">
-          <button onClick={handleSaveAllToFirebase} disabled={isSaving || draftCount === 0} className={`flex items-center gap-2 px-4 py-2.5 rounded-l-lg text-[11px] font-black uppercase transition-all shadow-md active:scale-95 ${draftCount > 0 ? 'bg-amber-500 text-white hover:bg-amber-600 animate-pulse' : 'bg-indigo-800 text-indigo-400 opacity-50 cursor-not-allowed'}`}>
-            {isSaving ? '⏳' : '💾'} Lưu ({draftCount})
+
+        <div className="w-px h-5 bg-indigo-700 mx-1"></div>
+
+        <div className="flex items-center">
+          <button
+            onClick={handleSaveAllToFirebase}
+            disabled={isSaving || draftCount === 0}
+            className={`flex items-center gap-1 px-3 py-2 rounded-l-lg text-[11px] font-black uppercase transition-all shadow-md
+              ${draftCount > 0 
+                ? 'bg-amber-500 text-white hover:bg-amber-600' 
+                : 'bg-indigo-800 text-indigo-400 opacity-50 cursor-not-allowed'}`}
+          >
+            {isSaving ? '⏳' : '💾'} ({draftCount})
           </button>
-          <button onClick={() => setShowApiKeyModal(true)} className={`p-2.5 rounded-r-lg transition-all ${apiKey ? 'bg-emerald-600 text-white' : 'bg-red-500 text-white animate-bounce'} shadow-md`}>
+
+          <button
+            onClick={() => setShowApiKeyModal(true)}
+            className={`p-2 rounded-r-lg transition-all
+              ${apiKey 
+                ? 'bg-emerald-600 text-white' 
+                : 'bg-red-500 text-white'} shadow-md`}
+          >
             ⚙️
           </button>
         </div>
       </div>
-      <div className="flex bg-indigo-950/50 p-1 rounded-xl gap-1 flex-wrap justify-center">
+
+      <div className="flex bg-indigo-950/50 p-1 rounded-xl gap-1">
         {['subject', 'competency', 'quality', 'specific'].map(m => (
-          <button key={m} onClick={() => { setViewMode(m); setSelectedCriteriaId(''); setDraftData({}); }} className={`px-4 py-2.5 rounded-lg text-[11px] font-black uppercase transition-all ${viewMode === m ? 'bg-indigo-600 text-white shadow-lg' : 'text-indigo-300 hover:text-white'}`}>
-            {m === 'competency' ? 'NL Chung' : (m === 'subject' ? 'Môn học' : (m === 'quality' ? 'Phẩm chất' : 'NL Đặc thù'))}
+          <button
+            key={m}
+            onClick={() => { setViewMode(m); setSelectedCriteriaId(''); setDraftData({}); }}
+            className={`px-3 py-2 rounded-lg text-[11px] font-black uppercase transition-all whitespace-nowrap
+              ${viewMode === m 
+                ? 'bg-indigo-600 text-white shadow-lg' 
+                : 'text-indigo-300 hover:text-white'}`}
+          >
+            {m === 'competency' ? 'NL Chung' : 
+             m === 'subject' ? 'Môn học' : 
+             m === 'quality' ? 'Phẩm chất' : 'NL Đặc thù'}
           </button>
         ))}
       </div>
+
     </div>
   </div>
 </header>
+
 
       {/* SELECTION */}
       <div className="w-full px-4 md:px-8 py-3 flex flex-wrap gap-10 items-stretch">
