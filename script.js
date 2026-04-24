@@ -716,6 +716,7 @@ RULES:
 4. Write DIFFERENT comments for each student
 5. Be specific about skills and knowledge
 6. Each comment should be 1-2 sentences
+7. Automatically detect and correct spelling and grammar errors in the input before generating comments.
 
 LEVELS:
 - T (Tot/Excellent): Praise clearly
