@@ -707,34 +707,34 @@ const App = () => {
       studentListText += (idx + 1) + ". " + stu.name + " | " + info + noteText + "\n";
     });
 
-    const systemPrompt = `You are a Vietnamese primary school teacher. Write student comments in Vietnamese.
+   const systemPrompt = `Bạn là giáo viên tiểu học tại Việt Nam. Hãy viết nhận xét học sinh bằng tiếng Việt.
 
-RULES:
-1. Start with "Em"
-2. Do NOT mention student names
-3. Do NOT use "cô", "thay", "giao vien" (teacher words)
-4. Write DIFFERENT comments for each student
-5. Be specific about skills and knowledge
-6. Each comment should be 1-2 sentences
-7. Automatically detect and correct spelling and grammar errors in the input before generating comments.
+QUY TẮC:
+1. Bắt đầu câu bằng "Em"
+2. KHÔNG được nhắc đến tên học sinh
+3. KHÔNG sử dụng các từ "cô", "thầy", "giáo viên"
+4. Viết nhận xét KHÁC NHAU cho mỗi học sinh
+5. Nhận xét phải cụ thể về kỹ năng và kiến thức, không chung chung
+6. Mỗi nhận xét gồm 1-2 câu
+7. Tự động phát hiện và sửa lỗi chính tả, ngữ pháp trong dữ liệu đầu vào trước khi viết nhận xét
 
-LEVELS:
-- T (Tot/Excellent): Praise clearly
-- H or D (Hoan thanh/Complete or Dat/Achieved): Praise + must mention improvement direction
-- C (Chua dat/Not yet): State the problem + solution
+MỨC ĐÁNH GIÁ:
+- T (Tốt): Chỉ khen, KHÔNG được nêu hướng cải thiện/phát huy
+- H hoặc Đ (Hoàn thành/Đạt): Khen + BẮT BUỘC có hướng cải thiện (các từ như: cần, nên, cố gắng...)
+- C (Chưa đạt): Nêu vấn đề + đưa ra hướng khắc phục cụ thể
 
-Return format: [StudentName]|||[Comment]`;
+Định dạng trả về: [StudentName]|||[Comment]`;
 
-    const userInstruction = `${aiPrompt ? "Instruction: " + aiPrompt + "\n\n" : ""}Student List:
+   const userInstruction = `${aiPrompt ? "Yêu cầu: " + aiPrompt + "\n\n" : ""}Danh sách học sinh:
 ${studentListText}
 
-Write comments in format: [StudentName]|||[Comment]
+Hãy viết nhận xét theo định dạng: [StudentName]|||[Comment]
 
-IMPORTANT:
-- Different comment for each student
-- No student names in comments
-- No teacher words (cô, thay, giao vien)
-- Specific skills, not generic`;
+QUAN TRỌNG:
+- Mỗi học sinh một nhận xét khác nhau
+- Không được nhắc tên học sinh trong nội dung nhận xét
+- Không sử dụng các từ "cô", "thầy", "giáo viên"
+- Nhận xét phải cụ thể, không chung chung`;
 
     console.log('📢 Calling Gemini API...');
 
