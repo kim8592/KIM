@@ -890,7 +890,14 @@ LƯU Ý:
         let comment = parts.slice(1).join('|||').trim();
         
         // Tìm học sinh theo tên
-        const student = allTargets.find(s => if (student && comment && comment.length > 0) {
+        const student = allTargets.find(s => 
+          s.name === nameOrId || 
+          s.id === nameOrId ||
+          s.name.includes(nameOrId) ||
+          nameOrId.includes(s.name)
+        );
+        
+        if (student && comment && comment.length > 0) {
 
   // Xóa tên học sinh khỏi comment
   comment = comment.replace(new RegExp(`^${student.name}[,.\\s]*`, 'gi'), '');
@@ -916,7 +923,7 @@ LƯU Ý:
     successCount++;
   }
 }
-}
+      }
     });
 
     if (successCount === 0) {
