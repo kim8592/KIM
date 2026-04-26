@@ -636,6 +636,34 @@ const App = () => {
     } finally { setIsSaving(false); }
   };
 
+  // ===== HELPER FUNCTIONS =====
+function hasImprove(comment) {
+  return /(cần|nên|cố gắng|khắc phục|rèn luyện|lưu ý)/i.test(comment);
+}
+
+function autoFixComment(level, comment) {
+  if (!comment) return comment;
+
+  comment = comment.trim();
+
+  // T mà bị dính cải thiện → xóa
+  if (level === "T" && hasImprove(comment)) {
+    comment = comment
+      .replace(/(tuy nhiên|nhưng|song)\s.*$/i, '')
+      .replace(/(cần|nên|cố gắng|khắc phục|rèn luyện|lưu ý)[^.]*\.?/gi, '')
+      .trim();
+
+    if (!/[.!?]$/.test(comment)) comment += '.';
+  }
+
+  // H/D mà thiếu cải thiện → thêm
+  if ((level === "H" || level === "D") && !hasImprove(comment)) {
+    comment += " Em cần cố gắng hơn để hoàn thiện kỹ năng.";
+  }
+
+  return comment;
+}
+
   // ===== AI GENERATION (GỌI 1 LẦN, DÙNG TEXT FORMAT) =====
     // ===== AI GENERATION (GỌI 1 LẦN, DÙNG TEXT FORMAT) =====
   const runAI = async () => {
@@ -821,19 +849,34 @@ LƯU Ý:
           nameOrId.includes(s.name)
         );
         
-        if (student && comment && comment.length > 0) {
-          // Xóa tên học sinh khỏi nhận xét
-          comment = comment.replace(new RegExp(`^${student.name}[,.\\s]*`, 'gi'), '');
-          comment = comment.replace(new RegExp(`\\b${student.name}\\b`, 'gi'), '');
-          
-          comment = filterComments(comment).trim();
-          
-          if (comment.length > 10) { // Nhận xét phải có ít nhất 10 ký tự
-            updates[student.id] = comment;
-            successCount++;
-          }
-        }
-      }
+       if (student && comment && comment.length > 0) {
+
+  // Xóa tên
+  comment = comment.replace(new RegExp(`^${student.name}[,.\\s]*`, 'gi'), '');
+  comment = comment.replace(new RegExp(`\\b${student.name}\\b`, 'gi'), '');
+
+  comment = filterComments(comment).trim();
+
+  // ===== LẤY LEVEL =====
+  const d = studentData[student.id] || {};
+  const draft = draftData[student.id] || {};
+  let level = "";
+
+  if (viewMode === 'subject' || systemMode === 'vnedu') {
+    level = draft.level !== undefined ? draft.level : (d.level || "");
+  } else {
+    level = ""; // smas bạn có thể bỏ qua hoặc xử lý riêng
+  }
+
+  // ===== FIX LEVEL (QUAN TRỌNG NHẤT) =====
+  comment = autoFixComment(level, comment);
+
+  if (comment.length > 10) {
+    updates[student.id] = comment;
+    successCount++;
+  }
+}
+}
     });
 
     if (successCount === 0) {
