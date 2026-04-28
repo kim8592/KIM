@@ -716,7 +716,13 @@ function autoFixComment(level, comment) {
 
   if (!/[.!?]$/.test(comment)) comment += '.';
 }
+// H/Đ mà thiếu cải thiện → thêm
+  if ((level === "H" || level === "Đ") && !hasImprove(comment)) {
+    comment += " Em cần cố gắng hơn để hoàn thiện kỹ năng.";
+  }
 
+  return comment;
+}
  
   // ===== AI GENERATION (GỌI 1 LẦN, DÙNG TEXT FORMAT) =====
     // ===== AI GENERATION (GỌI 1 LẦN, DÙNG TEXT FORMAT) =====
