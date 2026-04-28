@@ -668,20 +668,28 @@ const App = () => {
   if (!/(phát huy|tiến bộ|duy trì|rèn luyện|kết quả tốt hơn)/i.test(comment)) {
     comment += encourages[Math.floor(Math.random() * encourages.length)];
   }
+}
 
-  // ===== MỨC C → khen nhẹ + hạn chế + cách khắc phục =====
-if (level === "C") {
-  const supports = [
-    " Em có cố gắng trong học tập, tuy nhiên kỹ năng còn hạn chế, cần luyện tập thêm để tiến bộ hơn.",
-    " Em có tinh thần tham gia học tập tốt, nhưng kết quả chưa ổn định, nên rèn luyện thường xuyên hơn.",
-    " Em chăm chỉ và có thiện chí học tập, song vẫn còn một số khó khăn, cần kiên trì luyện tập thêm.",
-    " Em có nhiều cố gắng, tuy nhiên việc thực hiện nhiệm vụ còn chậm, nên luyện tập đều đặn hơn.",
-    " Em tích cực tham gia học tập, nhưng kiến thức còn chưa vững, cần ôn luyện thêm để cải thiện."
-  ];
 
-  if (!/(cần|nên|luyện|rèn|khắc phục|tiến bộ)/i.test(comment)) {
-    comment += supports[Math.floor(Math.random() * supports.length)];
+  // ===== MỨC C → tránh tiêu cực, thêm động viên =====
+  if (level === "C") {
+    const supports = [
+      " Em cần cố gắng hơn, chắc chắn sẽ tiến bộ.",
+      " Nếu kiên trì luyện tập, em sẽ cải thiện tốt hơn.",
+      " Em nên nỗ lực hơn để đạt kết quả tốt hơn."
+    ];
+
+    if (!/(tiến bộ|cải thiện)/i.test(comment)) {
+      comment += supports[Math.floor(Math.random() * supports.length)];
+    }
   }
+
+  return comment;
+}
+
+function hasImprove(comment) {
+  return /(cần|nên|cố gắng|khắc phục|rèn luyện|lưu ý)/i.test(comment);
+}
 
 function autoFixComment(level, comment) {
   if (!comment) return comment;
