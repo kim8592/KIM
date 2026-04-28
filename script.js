@@ -668,8 +668,6 @@ const App = () => {
   if (!/(phát huy|tiến bộ|duy trì|rèn luyện|kết quả tốt hơn)/i.test(comment)) {
     comment += encourages[Math.floor(Math.random() * encourages.length)];
   }
-}
-
 
   // ===== MỨC C → khen nhẹ + hạn chế + cách khắc phục =====
 if (level === "C") {
@@ -684,8 +682,6 @@ if (level === "C") {
   if (!/(cần|nên|luyện|rèn|khắc phục|tiến bộ)/i.test(comment)) {
     comment += supports[Math.floor(Math.random() * supports.length)];
   }
-}
-
 
 function autoFixComment(level, comment) {
   if (!comment) return comment;
