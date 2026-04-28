@@ -656,18 +656,17 @@ const App = () => {
     }
   }
 
-  // ===== MỨC H/D → khen + động viên nhẹ =====
-  if (level === "H" || level === "Đ") {
-    const encourages = [
-      " Em sẽ tiến bộ hơn nếu tiếp tục cố gắng.",
-      " Em hoàn toàn có thể làm tốt hơn trong thời gian tới.",
-      " Em có tiềm năng và sẽ tiến bộ rõ rệt nếu nỗ lực thêm."
-    ];
+ if (level === "H" || level === "Đ") {
+  const encourages = [
+    " Em đã có cố gắng và sẽ tiến bộ hơn nếu tiếp tục rèn luyện.",
+    " Em hoàn thành khá tốt nhiệm vụ, cần tự tin hơn trong thời gian tới.",
+    " Em có nhiều tiến bộ, nếu nỗ lực thêm sẽ đạt kết quả tốt hơn."
+  ];
 
-    if (!/(tiến bộ|có thể|tiềm năng)/i.test(comment)) {
-      comment += encourages[Math.floor(Math.random() * encourages.length)];
-    }
+  if (!/(cần|nên|tiếp tục|rèn luyện|tiến bộ)/i.test(comment)) {
+    comment += encourages[Math.floor(Math.random() * encourages.length)];
   }
+}
 
   // ===== MỨC C → tránh tiêu cực, thêm động viên =====
   if (level === "C") {
