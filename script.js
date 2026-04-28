@@ -656,7 +656,8 @@ const App = () => {
     }
   }
 
- if (level === "H" || level === "Đ") {
+ // ===== MỨC H/Đ → khen + hướng phát huy nhẹ nhàng =====
+if (level === "H" || level === "Đ") {
   const encourages = [
     " Em tiếp tục phát huy tinh thần học tập này sẽ tiến bộ hơn nữa.",
     " Em duy trì sự cố gắng hiện tại sẽ đạt kết quả tốt hơn.",
@@ -665,10 +666,12 @@ const App = () => {
     " Em giữ vững tinh thần học tập này sẽ đạt nhiều kết quả tích cực."
   ];
 
-  if (!/(phát huy|tiến bộ|duy trì|rèn luyện|kết quả tốt hơn)/i.test(comment)) {
+  // Nếu comment chưa có ý phát huy thì mới thêm
+  if (!/(phát huy|tiến bộ|duy trì|rèn luyện|kết quả tốt hơn|hãy|thử sức|mạnh dạn hơn|tốt hơn nữa)/i.test(comment)) {
     comment += encourages[Math.floor(Math.random() * encourages.length)];
   }
 }
+
 
 
   // ===== MỨC C → tránh tiêu cực, thêm động viên =====
