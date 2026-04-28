@@ -658,35 +658,34 @@ const App = () => {
 
  if (level === "H" || level === "Đ") {
   const encourages = [
-    " Em đã có cố gắng và sẽ tiến bộ hơn nếu tiếp tục rèn luyện.",
-    " Em hoàn thành khá tốt nhiệm vụ, cần tự tin hơn trong thời gian tới.",
-    " Em có nhiều tiến bộ, nếu nỗ lực thêm sẽ đạt kết quả tốt hơn."
+    " Em tiếp tục phát huy tinh thần học tập này sẽ tiến bộ hơn nữa.",
+    " Em duy trì sự cố gắng hiện tại sẽ đạt kết quả tốt hơn.",
+    " Em mạnh dạn hơn trong học tập sẽ thể hiện tốt hơn nữa.",
+    " Em tiếp tục rèn luyện đều đặn sẽ ngày càng tiến bộ.",
+    " Em giữ vững tinh thần học tập này sẽ đạt nhiều kết quả tích cực."
   ];
 
-  if (!/(cần|nên|tiếp tục|rèn luyện|tiến bộ)/i.test(comment)) {
+  if (!/(phát huy|tiến bộ|duy trì|rèn luyện|kết quả tốt hơn)/i.test(comment)) {
     comment += encourages[Math.floor(Math.random() * encourages.length)];
   }
 }
 
-  // ===== MỨC C → tránh tiêu cực, thêm động viên =====
-  if (level === "C") {
-    const supports = [
-      " Em cần cố gắng hơn, chắc chắn sẽ tiến bộ.",
-      " Nếu kiên trì luyện tập, em sẽ cải thiện tốt hơn.",
-      " Em nên nỗ lực hơn để đạt kết quả tốt hơn."
-    ];
 
-    if (!/(tiến bộ|cải thiện)/i.test(comment)) {
-      comment += supports[Math.floor(Math.random() * supports.length)];
-    }
+  // ===== MỨC C → khen nhẹ + hạn chế + cách khắc phục =====
+if (level === "C") {
+  const supports = [
+    " Em có cố gắng trong học tập, tuy nhiên kỹ năng còn hạn chế, cần luyện tập thêm để tiến bộ hơn.",
+    " Em có tinh thần tham gia học tập tốt, nhưng kết quả chưa ổn định, nên rèn luyện thường xuyên hơn.",
+    " Em chăm chỉ và có thiện chí học tập, song vẫn còn một số khó khăn, cần kiên trì luyện tập thêm.",
+    " Em có nhiều cố gắng, tuy nhiên việc thực hiện nhiệm vụ còn chậm, nên luyện tập đều đặn hơn.",
+    " Em tích cực tham gia học tập, nhưng kiến thức còn chưa vững, cần ôn luyện thêm để cải thiện."
+  ];
+
+  if (!/(cần|nên|luyện|rèn|khắc phục|tiến bộ)/i.test(comment)) {
+    comment += supports[Math.floor(Math.random() * supports.length)];
   }
-
-  return comment;
 }
 
-function hasImprove(comment) {
-  return /(cần|nên|cố gắng|khắc phục|rèn luyện|lưu ý)/i.test(comment);
-}
 
 function autoFixComment(level, comment) {
   if (!comment) return comment;
