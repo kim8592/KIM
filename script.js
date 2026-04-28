@@ -714,8 +714,7 @@ function autoFixComment(level, comment) {
   if (!/[.!?]$/.test(comment)) comment += '.';
 }
 
-
-  // H/D mà thiếu cải thiện → thêm
+  // H/Đ mà thiếu cải thiện → thêm
   if ((level === "H" || level === "Đ") && !hasImprove(comment)) {
     comment += " Em cần cố gắng hơn để hoàn thiện kỹ năng.";
   }
@@ -803,9 +802,7 @@ QUY TẮC BẮT BUỘC:
 4. Mỗi học sinh phải có nhận xét KHÁC NHAU
 5. Nhận xét phải CỤ THỂ (nêu rõ kỹ năng, biểu hiện học tập), KHÔNG chung chung
 6. Tự động sửa lỗi chính tả, ngữ pháp trước khi viết
-7. Câu phải hoàn chỉnh ngữ pháp, không được dang dở.
-8. Không kết thúc câu bằng các từ rời như: "tạo", "luôn", "và", "nhưng", "cần", "nên", "biết", "có", "được"..
-9. Mỗi câu phải đọc tự nhiên như giáo viên viết thật.
+7. Mỗi câu phải đọc tự nhiên như giáo viên viết thật.
 
 =====================
 QUY TẮC MỨC ĐÁNH GIÁ (CỰC KỲ QUAN TRỌNG - KHÔNG ĐƯỢC SAI):
