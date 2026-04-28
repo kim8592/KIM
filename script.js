@@ -696,14 +696,24 @@ function autoFixComment(level, comment) {
 
   // T mà bị dính cải thiện → xóa
   if (level === "T" && hasImprove(comment)) {
-  comment = comment
-    .replace(/(tuy nhiên|nhưng|song).*/i, '')
-    .replace(/\b(cần|nên|cố gắng|khắc phục|rèn luyện|lưu ý)\b/gi, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+
+  // Nếu có nhưng/tuy nhiên/song -> chỉ lấy vế trước
+  comment = comment.split(/\bnhưng\b|\btuy nhiên\b|\bsong\b/i)[0].trim();
+
+  // Nếu có từ cải thiện -> cắt tại vị trí đó
+  comment = comment.split(/\bcần\b|\bnên\b|\bcố gắng\b|\bkhắc phục\b|\brèn luyện\b|\blưu ý\b/i)[0].trim();
+
+  // Xóa dấu phẩy dư cuối câu
+  comment = comment.replace(/[,:;]\s*$/, '').trim();
+
+  // Nếu quá ngắn hoặc kết thúc bất thường -> thay câu mới
+  if (comment.split(' ').length < 5 || /(tạo|luôn|và|nhưng)$/i.test(comment)) {
+    comment = "Em học tập tích cực và thể hiện nhiều điểm nổi bật.";
+  }
 
   if (!/[.!?]$/.test(comment)) comment += '.';
 }
+
 
   // H/D mà thiếu cải thiện → thêm
   if ((level === "H" || level === "Đ") && !hasImprove(comment)) {
