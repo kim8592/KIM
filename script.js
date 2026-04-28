@@ -813,12 +813,13 @@ MỨC ĐÁNH GIÁ:
 
 Chỉ trả đúng định dạng.`;
 
-   const userInstruction = `${aiPrompt ? `Hướng dẫn giáo viên: ${aiPrompt}
+  ${aiPrompt ? `Hướng dẫn giáo viên: ${aiPrompt}
 
-Nếu hướng dẫn có nhiều nội dung, chỉ chọn 1 nội dung phù hợp nhất với từng học sinh để viết nhận xét.
-Không viết tất cả nội dung cùng lúc.
-Không gộp nhiều ý trong một câu.
-
+Nếu có nhiều nội dung:
+- Mỗi học sinh chỉ chọn 1 nội dung.
+- Không luôn chọn nội dung đầu tiên.
+- Phân bổ đều các nội dung cho các học sinh khác nhau.
+- Tránh lặp cùng một nội dung liên tiếp.
 ` : ""}Danh sách học sinh:
 ${studentListText}
 
