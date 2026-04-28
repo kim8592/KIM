@@ -666,13 +666,11 @@ if (level === "H" || level === "Đ") {
     " Em giữ vững tinh thần học tập này sẽ đạt nhiều kết quả tích cực."
   ];
 
-  // Nếu comment chưa có ý phát huy thì mới thêm
-  if (!/(phát huy|tiến bộ|duy trì|rèn luyện|kết quả tốt hơn|hãy|thử sức|mạnh dạn hơn|tốt hơn nữa)/i.test(comment)) {
+  // Nếu comment chưa có hướng phát huy thì mới thêm
+  if (!/(phát huy|tiến bộ|duy trì|rèn luyện|kết quả tốt hơn|hãy|thử sức|mạnh dạn hơn|tốt hơn nữa|luyện|ôn tập|tiếp tục|cải thiện)/i.test(comment)) {
     comment += encourages[Math.floor(Math.random() * encourages.length)];
   }
 }
-
-
 
   // ===== MỨC C → tránh tiêu cực, thêm động viên =====
   if (level === "C") {
