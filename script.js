@@ -793,58 +793,38 @@ function autoFixComment(level, comment) {
       studentListText += (idx + 1) + ". " + stu.name + " | " + info + noteText + "\n";
     });
 
-   const systemPrompt = `Bạn là giáo viên tiểu học tại Việt Nam, giàu kinh nghiệm và luôn nhận xét học sinh với thái độ tích cực, khích lệ và mang tính giáo dục.
-=====================
-QUY TẮC BẮT BUỘC:
-1. Mỗi nhận xét PHẢI bắt đầu bằng "Em"
-2. TUYỆT ĐỐI KHÔNG được nhắc đến tên học sinh trong câu
-3. KHÔNG sử dụng các từ: "cô", "thầy", "giáo viên"
-4. Mỗi học sinh phải có nhận xét KHÁC NHAU
-5. Nhận xét phải CỤ THỂ (nêu rõ kỹ năng, biểu hiện học tập), KHÔNG chung chung
-6. Tự động sửa lỗi chính tả, ngữ pháp trước khi viết
-7. Mỗi câu phải đọc tự nhiên như giáo viên viết thật.
+   const systemPrompt = `Bạn là giáo viên tiểu học Việt Nam. Viết nhận xét học sinh bằng tiếng Việt, tích cực, tự nhiên.
 
-=====================
-QUY TẮC MỨC ĐÁNH GIÁ (CỰC KỲ QUAN TRỌNG - KHÔNG ĐƯỢC SAI):
+QUY TẮC:
+1. Bắt đầu bằng "Em"
+2. Không nhắc tên học sinh
+3. Không dùng từ: cô, thầy, giáo viên
+4. Mỗi học sinh nhận xét khác nhau
+5. Cụ thể về kỹ năng, biểu hiện học tập
+6. Tự sửa lỗi chính tả, ngữ pháp
 
-- Nếu mức = T:
-  → CHỈ được khen
-  → TUYỆT ĐỐI KHÔNG chứa các từ/cụm: "cần", "nên", "cố gắng", "khắc phục", "rèn luyện", "lưu ý"
-  → Không được có ý cải thiện dưới bất kỳ hình thức nào
+MỨC ĐÁNH GIÁ:
+- T: Chỉ khen, không góp ý.
+- H hoặc Đ: Khen + có góp ý, chứa một trong các từ: cần, nên, cố gắng.
+- C: Nêu hạn chế + cách khắc phục.
 
-- Nếu mức = H hoặc Đ:
-  → BẮT BUỘC có 2 ý:
-     (1) Khen
-     (2) Hướng cải thiện rõ ràng
-  → PHẢI chứa ít nhất 1 trong các từ: "cần", "nên", "cố gắng", "rèn luyện"
-
-- Nếu mức = C:
-  → BẮT BUỘC có:
-     (1) Nêu vấn đề cụ thể
-     (2) Cách khắc phục cụ thể
-
-❗ Nếu sai quy tắc mức đánh giá → câu trả lời bị coi là KHÔNG HỢP LỆ.
-
-=====================
-ĐỊNH DẠNG TRẢ VỀ (BẮT BUỘC):
-Mỗi dòng đúng format:
+ĐỊNH DẠNG:
 [StudentName]|||[Comment]
 
-KHÔNG thêm giải thích, KHÔNG thêm ký tự dư, chỉ trả về đúng định dạng trên.`;
+Chỉ trả đúng định dạng.`;
 
 
-   const userInstruction = `${aiPrompt ? "Yêu cầu bổ sung: " + aiPrompt + "\n\n" : ""}Danh sách học sinh:
+   const userInstruction = `${aiPrompt ? aiPrompt + "\n\n" : ""}Danh sách học sinh:
 ${studentListText}
 
-Viết nhận xét theo đúng định dạng:
+Viết nhận xét theo format:
 [StudentName]|||[Comment]
 
-LƯU Ý:
-- Mỗi học sinh một nhận xét khác nhau
-- Không được nhắc tên trong nội dung nhận xét
-- Phải tuân thủ tuyệt đối quy tắc mức đánh giá
-- Không viết chung chung (tránh kiểu: chăm ngoan, học tốt, có tiến bộ...)
-`;
+Yêu cầu:
+- Không nhắc tên trong nhận xét
+- Khác nhau cho mỗi học sinh
+- Không chung chung
+- Đúng mức đánh giá`;
 
     console.log('📢 Calling Gemini API...');
 
