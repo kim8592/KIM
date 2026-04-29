@@ -899,8 +899,7 @@ QUY TẮC MỨC ĐÁNH GIÁ (CỰC KỲ QUAN TRỌNG - KHÔNG ĐƯỢC SAI):
   → BẮT BUỘC có 2 ý:
      (1) Khen
      (2) Hướng cải thiện rõ ràng
-  → PHẢI chứa ít nhất 1 trong các từ: "cần", "nên", "cố gắng", "rèn luyện"
-
+ 
 - Nếu mức = C:
   → BẮT BUỘC có:
      (1) Nêu vấn đề cụ thể
