@@ -659,17 +659,21 @@ function beautifyComment(level, comment) {
 
   // ===== MỨC H / Đ =====
   if (level === "H" || level === "Đ") {
+  const hasPraise = /(tốt|vững|hoàn thành|đúng|đạt|khá|nắm vững|chăm|tích cực)/i.test(comment);
+
+  const hasDirection = hasDevelopmentIdea(comment);
+
+  if (hasPraise && !hasDirection) {
     const encourages = [
-      " Em tiếp tục phát huy khả năng này sẽ tiến bộ hơn nữa.",
-      " Em có thể thử sức với những nhiệm vụ khó hơn để phát triển thêm.",
-      " Em duy trì phong độ hiện tại sẽ đạt kết quả tốt hơn.",
-      " Em tiếp tục rèn luyện để nâng cao năng lực của mình."
+      " Em có thể thử sức với các bài nâng cao hơn để phát triển thêm.",
+      " Em có thể rèn luyện thêm để nâng cao tốc độ và độ chính xác.",
+      " Em tiếp tục mở rộng kiến thức với các dạng bài khó hơn.",
+      " Em có thể phát triển thêm khả năng bằng việc luyện tập thường xuyên hơn."
     ];
 
-    if (!hasDevelopmentIdea(comment)) {
-      comment += encourages[Math.floor(Math.random() * encourages.length)];
-    }
+    comment += " " + encourages[Math.floor(Math.random() * encourages.length)];
   }
+}
 
   // ===== MỨC C =====
   if (level === "C") {
@@ -708,9 +712,8 @@ function normalizeSentence(text) {
 // KIỂM TRA HƯỚNG PHÁT TRIỂN (QUAN TRỌNG)
 // =======================
 function hasDevelopmentIdea(comment) {
-  return /(cần|nên|hãy|tiếp tục|phát huy|duy trì|thử sức|rèn luyện|luyện|ôn|tăng|cải thiện|nâng cao|hoàn thành|tiến bộ|tốt hơn|khả năng|tự tin|mạnh dạn|phát triển|thử|làm tốt hơn|phát huy hơn)/i.test(comment);
+  return /(cần|nên|hãy|tiếp tục|phát huy|duy trì|thử sức|rèn luyện|luyện|ôn|tăng|cải thiện|nâng cao|tiến bộ|tốt hơn|khả năng|tự tin|mạnh dạn|phát triển|thử|phát huy hơn|nâng cao hơn)/i.test(comment);
 }
-
 
 // =======================
 // KIỂM TRA CÂU CỤT
