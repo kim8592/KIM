@@ -635,22 +635,17 @@ const App = () => {
       showToast('Lỗi lưu dữ liệu: ' + error.message, 'error', '❌', 4000);
     } finally { setIsSaving(false); }
   };
+// ===== HELPER =====
 function normalizeSentence(text) {
   if (!text) return "";
 
   text = text.replace(/\s+/g, " ").trim();
-
-  // bỏ dấu phẩy cuối
   text = text.replace(/[,:;]\s*$/, "").trim();
 
-  // thêm dấu chấm cuối câu
-  if (!/[.!?]$/.test(text)) {
-    text += ".";
-  }
+  if (!/[.!?]$/.test(text)) text += ".";
 
   return text;
 }
-
   
   // ===== AI GENERATION (GỌI 1 LẦN, DÙNG TEXT FORMAT) =====
     // ===== AI GENERATION (GỌI 1 LẦN, DÙNG TEXT FORMAT) =====
@@ -698,23 +693,31 @@ return true;
       const note = draft.note !== undefined ? draft.note : (d.note || "");
       
       let info = "N/A";
-      if (viewMode === 'subject') {
-        const subName = subjects.find(s => s.id === selectedSubId)?.name || "Unknown";
-        const lv = draft.level !== undefined ? draft.level : (d.level || "");
-        info = "Subject: " + subName + ", Level: " + lv;
-      } else if (systemMode === 'vnedu' && viewMode !== 'subject') {
-        const list = viewMode === 'quality' ? QUALITY_CRITERIA : (viewMode === 'competency' ? GENERAL_COMPETENCIES : SPECIFIC_COMPETENCIES);
-        const criteriaName = list.find(c => c.id === selectedCriteriaId)?.name || "Unknown";
-        const lv = draft.level !== undefined ? draft.level : (d.level || "");
-        info = "Criteria: " + criteriaName + ", Level: " + lv;
-      } else {
-        const list = viewMode === 'quality' ? QUALITY_CRITERIA : (viewMode === 'competency' ? GENERAL_COMPETENCIES : SPECIFIC_COMPETENCIES);
-        const details = list.map(c => {
-          const lv = draft[`level_${c.id}`] !== undefined ? draft[`level_${c.id}`] : (d[`level_${c.id}`] || "");
-          return lv ? (c.name + ": " + lv) : null;
-        }).filter(Boolean).join(", ");
-        info = details || "N/A";
-      }
+
+if (viewMode === 'subject') {
+  const subName = subjects.find(s => s.id === selectedSubId)?.name || "";
+  info = "Môn: " + subName;
+
+} else if (systemMode === 'vnedu' && viewMode !== 'subject') {
+  const list = viewMode === 'quality'
+    ? QUALITY_CRITERIA
+    : (viewMode === 'competency'
+      ? GENERAL_COMPETENCIES
+      : SPECIFIC_COMPETENCIES);
+
+  const criteriaName = list.find(c => c.id === selectedCriteriaId)?.name || "";
+  info = "Tiêu chí: " + criteriaName;
+
+} else {
+  const list = viewMode === 'quality'
+    ? QUALITY_CRITERIA
+    : (viewMode === 'competency'
+      ? GENERAL_COMPETENCIES
+      : SPECIFIC_COMPETENCIES);
+
+  info = list.map(c => c.name).join(", ");
+}
+
       
       const noteText = note ? " | Note: " + note : "";
       studentListText += (idx + 1) + ". " + stu.name + " | " + info + noteText + "\n";
