@@ -939,8 +939,8 @@ ${studentListText}
         contents: [{ parts: [{ text: userInstruction }] }], 
         systemInstruction: { parts: [{ text: systemPrompt }] },
         generationConfig: { 
-          temperature: 0.3,
-          maxOutputTokens: 1500
+          temperature: 0.5,
+          maxOutputTokens: 2500
         }
       })
     });
