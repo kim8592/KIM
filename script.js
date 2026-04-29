@@ -1115,7 +1115,8 @@ const App = () => {
                   <button onClick={runAI} disabled={isGenerating || students.length === 0} className={`flex-1 xl:flex-none px-10 py-4 ${isGenerating ? 'bg-gray-500' : 'bg-indigo-600 hover:bg-indigo-700'} text-white rounded-xl font-black text-xs flex items-center justify-center gap-2 uppercase shadow-lg transition-all active:scale-95 disabled:opacity-50`}>
                     {isGenerating ? '⏳ Đang nhận xét...' : '✨ Nhận xét AI'}
                   </button>
-                  <button onClick={() => { setEditItem(null); setBulkInput(''); setModalType('student'); }} className="p-4 bg-slate-800 text-white rounded-xl shadow-lg hover:bg-black transition-all active:scale-95 text-lg">👥</button>
+                   <button onClick={() => { setEditItem(null); setBulkInput(''); setModalType('student'); }} className="p-4 bg-white text-slate-800 border border-gray-200 rounded-xl shadow-lg hover:bg-gray-100 transition-all active:scale-95 text-lg"
+>👥</button>
                 </div>
               </div>
               <div className="flex flex-wrap items-center justify-between pt-3 border-t border-slate-100 gap-4">
