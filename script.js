@@ -748,17 +748,21 @@ function autoFixComment(level, comment) {
       )[0].trim();
     }
 
-    if (isBrokenSentence(comment)) {
-      const goodList = [
-        "Em học tập tích cực và thể hiện nhiều điểm nổi bật",
-        "Em chăm học và hoàn thành tốt nhiệm vụ học tập",
-        "Em có tinh thần học tập tốt và rất đáng khen",
-        "Em tiếp thu bài nhanh và thực hiện nhiệm vụ hiệu quả",
-        "Em luôn nỗ lực và đạt kết quả đáng khen"
-      ];
-
-      comment = goodList[Math.floor(Math.random() * goodList.length)];
-    }
+      // nếu câu cụt hoặc bị dở
+  if (
+    isBrokenSentence(comment) ||
+    /(luôn thể hiện sự|đang|và|nhưng|giúp|để|trong việc)$/i.test(comment)
+  ) {
+    const goodList = [
+      "Em học tập tích cực và tiếp thu kiến thức rất nhanh.",
+      "Em nắm vững kiến thức và thể hiện sự tiến bộ rõ rệt.",
+      "Em có khả năng học tập tốt và luôn hoàn thành nhiệm vụ.",
+      "Em chăm chỉ và đạt nhiều kết quả đáng khen.",
+      "Em tiếp thu nhanh và vận dụng kiến thức hiệu quả."
+    ];
+  
+    comment = goodList[Math.floor(Math.random() * goodList.length)];
+  }
   }
 
 
