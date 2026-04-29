@@ -758,10 +758,18 @@ function autoFixComment(level, comment) {
   // MỨC H / Đ
   // ===================
   if (level === "H" || level === "Đ") {
-    if (!hasImprove(comment)) {
-      comment += " Em cần tiếp tục cố gắng để phát huy tốt hơn.";
-    }
+  if (!hasImprove(comment)) {
+    const tips = [
+      " Em cần tiếp tục cố gắng để phát huy tốt hơn.",
+      " Em nên duy trì nỗ lực để tiến bộ rõ hơn.",
+      " Em cần rèn thêm kỹ năng để đạt kết quả cao hơn.",
+      " Em hãy tiếp tục cố gắng để phát huy khả năng của mình."
+    ];
+
+    comment += tips[Math.floor(Math.random() * tips.length)];
   }
+}
+
 
   // ===================
   // MỨC C
