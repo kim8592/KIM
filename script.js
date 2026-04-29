@@ -939,7 +939,7 @@ ${studentListText}
         contents: [{ parts: [{ text: userInstruction }] }], 
         systemInstruction: { parts: [{ text: systemPrompt }] },
         generationConfig: { 
-          temperature: 0.7,
+          temperature: 0.3,
           maxOutputTokens: 6000
         }
       })
