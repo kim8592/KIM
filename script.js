@@ -728,31 +728,43 @@ function autoFixComment(level, comment) {
   // ===================
   // MỨC T
   // ===================
-  if (level === "T") {
+ if (level === "T") {
 
-    // Nếu có góp ý -> chỉ lấy câu trước
-    if (hasImprove(comment)) {
+  // Nếu có góp ý -> chỉ lấy câu trước
+  if (hasImprove(comment)) {
 
-      // Chỉ cắt tại từ nối góp ý
-      comment = comment.split(/\bnhưng\b|\btuy nhiên\b|\bsong\b/i)[0].trim();
+    comment = comment.split(/\bnhưng\b|\btuy nhiên\b|\bsong\b/i)[0].trim();
 
-      // Chỉ cắt các từ thật sự góp ý
-      comment = comment.split(/\bcần\b|\bcố gắng\b|\bkhắc phục\b|\brèn luyện\b|\blưu ý\b|\bchú ý\b/i)[0].trim();
-    }
-
-    // Nếu câu cụt hoặc vô nghĩa -> thay mới
-    if (isBrokenSentence(comment)) {
-      const goodList = [
-        "Em học tập tích cực và thể hiện nhiều điểm nổi bật",
-        "Em chăm học và hoàn thành tốt nhiệm vụ học tập",
-        "Em có tinh thần học tập tốt và tiến bộ rõ rệt",
-        "Em tiếp thu bài nhanh và thực hiện nhiệm vụ hiệu quả",
-        "Em luôn nỗ lực và đạt kết quả đáng khen"
-      ];
-
-      comment = goodList[Math.floor(Math.random() * goodList.length)];
-    }
+    comment = comment.split(/\bcần\b|\bcố gắng\b|\bkhắc phục\b|\brèn luyện\b|\blưu ý\b|\bchú ý\b/i)[0].trim();
   }
+
+  // Nếu câu cụt hoặc vô nghĩa -> thay mới
+  if (isBrokenSentence(comment)) {
+    const goodList = [
+      "Em học tập tích cực và thể hiện nhiều điểm nổi bật",
+      "Em chăm học và hoàn thành tốt nhiệm vụ học tập",
+      "Em có tinh thần học tập tốt và thật đáng khen",
+      "Em tiếp thu bài nhanh và thực hiện nhiệm vụ hiệu quả",
+      "Em luôn nỗ lực và đạt kết quả đáng khen"
+    ];
+
+    comment = goodList[Math.floor(Math.random() * goodList.length)];
+  }
+
+  // ===== THÊM CÂU KHEN CUỐI =====
+  const praiseEnds = [
+    " Em rất đáng khen.",
+    " Em có nhiều cố gắng đáng ghi nhận.",
+    " Em thể hiện tinh thần học tập rất tốt.",
+    " Em đạt kết quả tốt, đáng biểu dương.",
+    " Em tiếp tục phát huy nhé."
+  ];
+
+  if (!/(đáng khen|đáng ghi nhận|biểu dương|rất tốt)/i.test(comment)) {
+    comment += praiseEnds[Math.floor(Math.random() * praiseEnds.length)];
+  }
+}
+
 
   // ===================
   // MỨC H / Đ
