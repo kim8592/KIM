@@ -1,2 +1,4 @@
 // Service Worker cho DGTH
-self.addEventListener('fetch', () => {});
+self.addEventListener("fetch", event => {
+  event.respondWith(fetch(event.request));
+});
