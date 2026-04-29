@@ -690,7 +690,7 @@ function beautifyComment(level, comment) {
 // KIỂM TRA CÓ GÓP Ý KHÔNG
 // =======================
 function hasImprove(comment) {
-  return /(cần|cố gắng|khắc phục|rèn luyện|lưu ý|chú ý)/i.test(comment);
+  return /(cần|nên|cố gắng|khắc phục|rèn luyện|lưu ý|chú ý|tiếp tục phát huy|phát huy thêm|duy trì|luyện thêm|mạnh dạn hơn|tự tin hơn|tiến bộ hơn)/i.test(comment);
 }
 
 // =======================
