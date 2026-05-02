@@ -180,47 +180,62 @@ if (hasDevelopment) {
   // =========================
   // 1. HẠ TONE
   // =========================
-  comment = comment.replace(/rất tốt/gi, "tốt");
-  comment = comment.replace(/xuất sắc/gi, "tốt");
-  comment = comment.replace(/nổi bật/gi, "đáng ghi nhận");
-  comment = comment.replace(/tiến bộ rõ rệt/gi, "có tiến bộ");
-  comment = comment.replace(/rất chính xác/gi, "khá chính xác");
+  comment = comment
+    .replace(/rất tốt/gi, "tốt")
+    .replace(/xuất sắc/gi, "tốt")
+    .replace(/nổi bật/gi, "đáng ghi nhận")
+    .replace(/tiến bộ rõ rệt/gi, "có tiến bộ")
+    .replace(/rất chính xác/gi, "khá chính xác");
 
   // =========================
-  // 2. CHỈ THÊM "TIẾP TỤC" KHI CẦN THIẾT (AN TOÀN)
+  // 2. CHUẨN HOÁ "TUY NHIÊN" (QUAN TRỌNG)
   // =========================
-  comment = comment.replace(
-    /(\.|,|\s)cần\s(?=rèn|phát huy|chú ý|luyện|cố gắng)/gi,
-    "$1tiếp tục "
-  );
+  comment = comment
+    // sửa ", tuy nhiên" → ". Tuy nhiên,"
+    .replace(/,\s*tuy nhiên,\s*/gi, ". Tuy nhiên, ")
+    .replace(/;\s*tuy nhiên,\s*/gi, ". Tuy nhiên, ")
+    .replace(/,\s*tuy nhiên\s*/gi, ". Tuy nhiên, ")
+    // đảm bảo viết hoa đầu câu
+    .replace(/\. tuy nhiên,/g, ". Tuy nhiên,");
 
   // =========================
-  // 3. CHỐNG LẶP "TIẾP TỤC"
+  // 3. CHUẨN HOÁ CUỐI CÂU
   // =========================
-  comment = comment.replace(/tiếp tục\s+tiếp tục/gi, "tiếp tục");
-  comment = comment.replace(/Tiếp tục\s+tiếp tục/gi, "Tiếp tục");
+  comment = comment.replace(/[.!?]\s*$/, "");
 
   // =========================
-  // 4. THÊM HƯỚNG PHÁT HUY NẾU CHƯA CÓ
+  // 4. THÊM HƯỚNG PHÁT HUY (NẾU THIẾU)
   // =========================
-  if (!/tiếp tục|phát huy|rèn luyện|cố gắng|duy trì|nâng cao/i.test(comment)) {
+  const hasDirection =
+    /(phát huy|rèn luyện|cố gắng|duy trì|tiếp tục|nâng cao)/i.test(comment);
+
+  if (!hasDirection) {
 
     const encourages = [
-      "Em tiếp tục phát huy nhé.",
+      "Em tiếp tục phát huy điểm mạnh của mình.",
+      "Em cần duy trì và phát triển kết quả đã đạt được.",
+      "Em nên rèn luyện thêm để nâng cao kỹ năng.",
       "Em tiếp tục cố gắng để tiến bộ hơn.",
-      "Em duy trì tinh thần học tập tích cực nhé.",
-      "Em tiếp tục rèn luyện để đạt kết quả tốt hơn.",
-      "Em cố gắng thêm để ngày càng tiến bộ.",
-      "Em phát huy khả năng của mình hơn nữa."
+      "Em phát huy tinh thần học tập tích cực hơn nữa."
     ];
-
-    comment = comment.replace(/[.!?]\s*$/, "");
 
     const endText =
       encourages[Math.floor(Math.random() * encourages.length)];
 
     comment += ". " + endText;
   }
+
+  // =========================
+  // 5. VIẾT HOA SAU DẤU CÂU
+  // =========================
+  comment = comment.replace(
+    /([.!?]\s*)([a-zà-ỹ])/g,
+    (m, p1, p2) => p1 + p2.toUpperCase()
+  );
+
+  comment =
+    comment.charAt(0).toUpperCase() + comment.slice(1);
+}
 
 
  } else if (level === "C") {
