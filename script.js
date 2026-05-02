@@ -175,18 +175,25 @@ if (hasDevelopment) {
   comment += ", " + endText;
 }
 
-  } else if (level === "H" || level === "Đ") {
+ } else if (level === "H" || level === "Đ") {
 
-  // hạ tone nếu quá mạnh như mức T
-  comment = comment.replace(/\bcần\b/gi, "Tiếp tục");
-  comment = comment.replace(/\bCần\b/g, "Tiếp tục");
+  // đổi chữ cần thành tiếp tục đúng hoa/thường
+  comment = comment.replace(/\bcần\b/gi, (match, offset) => {
+    const before = comment.slice(0, offset).trim();
+
+    const isSentenceStart =
+      before === "" || /[.!?]\s*$/.test(before);
+
+    return isSentenceStart ? "Tiếp tục" : "tiếp tục";
+  });
+
+  // hạ tone
   comment = comment.replace(/rất tốt/gi, "tốt");
   comment = comment.replace(/xuất sắc/gi, "tốt");
   comment = comment.replace(/nổi bật/gi, "đáng ghi nhận");
   comment = comment.replace(/tiến bộ rõ rệt/gi, "có tiến bộ");
   comment = comment.replace(/rất chính xác/gi, "khá chính xác");
 
-  // nếu chưa có hướng phát huy thì thêm
   if (!/tiếp tục|phát huy|rèn luyện|cố gắng|duy trì|nâng cao/i.test(comment)) {
 
     const encourages = [
@@ -205,6 +212,8 @@ if (hasDevelopment) {
 
     comment += ". " + endText;
   }
+}
+
 
   } else if (level === "C") {
 
