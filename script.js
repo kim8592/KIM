@@ -207,7 +207,7 @@ if (hasDevelopment) {
   } else if (level === "C") {
 
   // hạ tone các từ quá mạnh
-  comment = comment.replace(/rất tốt/gi, "chưa ổn định");
+  comment = comment.replace(/rất tốt/gi, "đã cố gắng trong");
   comment = comment.replace(/làm tốt/gi, "đã cố gắng");
   comment = comment.replace(/nổi bật/gi, "có cố gắng");
   comment = comment.replace(/nhanh nhẹn/gi, "có tiến bộ");
