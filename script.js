@@ -214,25 +214,24 @@ if (hasDevelopment) {
   }
 
 
-  } else if (level === "C") {
+ } else if (level === "C") {
 
-  // đổi tone mở đầu để khác H
+  // đổi tone mở đầu mềm hơn
   comment = comment.replace(/^Em đã/gi, "Em đã có cố gắng");
   comment = comment.replace(/^Em có/gi, "Em đã có cố gắng");
   comment = comment.replace(/^Em biết/gi, "Em bước đầu biết");
   comment = comment.replace(/^Em làm/gi, "Em đã cố gắng làm");
 
-  // hạ tone nhẹ
+  // hạ tone (thay cụm dài trước)
+  comment = comment.replace(/rất chính xác/gi, "chưa thật chính xác");
   comment = comment.replace(/rất tốt/gi, "ở mức cơ bản");
-  comment = comment.replace(/tốt/gi, "có cố gắng");
   comment = comment.replace(/xuất sắc/gi, "đã nỗ lực");
   comment = comment.replace(/nổi bật/gi, "có tiến bộ");
-  comment = comment.replace(/rất chính xác/gi, "chưa thật chính xác");
-  comment = comment.replace(/chính xác/gi, "tương đối chính xác");
+  comment = comment.replace(/\btốt\b/gi, "có cố gắng");
+  comment = comment.replace(/\bchính xác\b/gi, "tương đối chính xác");
 
-  // xóa từ nối dễ làm giống H
-  comment = comment.replace(/tuy nhiên,/gi, "");
-  comment = comment.replace(/tuy nhiên/gi, "");
+  // bỏ từ nối
+  comment = comment.replace(/tuy nhiên,?/gi, "");
 
   // nếu chưa có góp ý thì thêm
   if (!/cần|nên|chú ý|rèn luyện|cố gắng/i.test(comment)) {
@@ -252,6 +251,11 @@ if (hasDevelopment) {
 
     comment += ". " + endText;
   }
+
+  // viết hoa sau dấu chấm
+  comment = comment.replace(/([.!?]\s*)([a-zà-ỹ])/g, (m, p1, p2) =>
+    p1 + p2.toUpperCase()
+  );
 }
 
 
