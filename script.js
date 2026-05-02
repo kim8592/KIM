@@ -231,7 +231,6 @@ if (hasDevelopment) {
 
   // Đảm bảo chữ đầu câu luôn viết hoa
   comment = comment.charAt(0).toUpperCase() + comment.slice(1);
-}
 
 
  } else if (level === "C") {
