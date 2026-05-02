@@ -155,16 +155,16 @@ if (hasDevelopment) {
 ) {
 
   const praiseEnds = [
-    "thể hiện rất tốt, đáng khen.",
+    "thể hiện rất tốt, đáng khen!",
     "có nhiều cố gắng đáng ghi nhận.",
-    "cho thấy sự tiến bộ rõ rệt.",
+    "cho thấy sự chăm chỉ rõ rệt.",
     "là tấm gương học tập tốt.",
-    "xứng đáng được tuyên dương.",
+    "xứng đáng được tuyên dương!",
     "đem lại kết quả học tập tích cực.",
     "thể hiện tinh thần học tập rất tốt.",
-    "có ý thức học tập đáng biểu dương.",
+    "có ý thức học tập đáng biểu dương!",
     "đạt kết quả nổi bật trong học tập.",
-    "có nhiều nỗ lực rất đáng khen."
+    "có nhiều nỗ lực rất đáng khen!"
   ];
 
   comment = comment.replace(/[.!?]\s*$/, "");
