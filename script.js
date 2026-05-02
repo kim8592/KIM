@@ -185,7 +185,7 @@ if (hasDevelopment) {
   comment = comment.replace(/rất chính xác/gi, "khá chính xác");
 
   // nếu chưa có hướng phát huy thì thêm
-  if (!/cần|nên|tiếp tục|phát huy|rèn luyện|cố gắng/i.test(comment)) {
+  if (!/nên|tiếp tục|phát huy|rèn luyện|cố gắng/i.test(comment)) {
 
     const encourages = [
       "Em tiếp tục phát huy nhé.",
