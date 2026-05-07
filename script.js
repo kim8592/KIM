@@ -79,7 +79,6 @@ Ngôn ngữ, Tính toán, Khoa học, Công nghệ, Tin học, Thẩm mĩ, Thể
 
 Nếu học sinh có mức tốt ở năng lực nào thì ưu tiên nêu năng lực đó.
 Không bỏ sót năng lực nổi bật.
-
 ĐỊNH DẠNG TRẢ VỀ:
 [StudentName]|||[Comment]
 (KHÔNG giải thích, KHÔNG ký tự dư)`,
