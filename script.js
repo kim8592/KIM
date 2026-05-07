@@ -67,21 +67,6 @@ LUẬT BẮTBUỘC:
 6. NÊU RÕ kỹ năng, biểu hiện học tập (KHÔNG chung chung).
 7. Tự động sửa lỗi chính tả, ngữ pháp.
 8. Mỗi câu phải tự nhiên như giáo viên thật viết.
-9. Nếu là năng lực đặc thù thì phải nhận xét đúng biểu hiện của năng lực đó.
-
-QUY TẮC NHẬN XÉT NL ĐẶC THÙ:
-- Ngôn ngữ: nhận xét đọc, viết, diễn đạt, trình bày.
-- Tính toán: nhận xét tính toán, giải toán, trình bày bài giải.
-- Khoa học: nhận xét quan sát, tìm hiểu, vận dụng kiến thức.
-- Công nghệ: nhận xét thao tác thực hành, thực hiện quy trình.
-- Tin học: nhận xét sử dụng máy tính, thao tác phần mềm.
-- Thẩm mĩ: nhận xét sáng tạo, cảm thụ, trình bày sản phẩm.
-- Thể chất: nhận xét vận động, phối hợp động tác, rèn luyện sức khỏe.
-
-KHÔNG nhận xét chung chung kiểu:
-"Em học tập tốt"
-"Em có cố gắng"
-nếu không nêu rõ biểu hiện năng lực.
 
 MỨC ĐÁNH GIÁ (CỰC KỲ QUAN TRỌNG):
 - Mức T: CHỈ khen, KHÔNG chứa "cần/nên/cố gắng/khắc phục/rèn luyện/lưu ý"
