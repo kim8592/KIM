@@ -1047,6 +1047,7 @@ if (viewMode === "specific" && systemMode === "smas") {
 
 comment = processComment(comment, finalLevel);
 
+
             if (comment.length > 10) {
               updates[student.id] = comment;
               successCount++;
