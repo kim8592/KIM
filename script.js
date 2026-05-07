@@ -34,7 +34,15 @@ const SPECIFIC_COMPETENCIES = [
   { id: 'art', name: 'Thẩm mĩ' },
   { id: 'phys', name: 'Thể chất' }
 ];
-
+const SPECIFIC_COMPETENCY_HINTS = {
+  lang: "diễn đạt, đọc hiểu, trình bày ý kiến, dùng từ, viết câu",
+  math: "tính toán, giải toán, nhận biết số, trình bày bài giải",
+  sci: "quan sát, tìm hiểu môi trường, vận dụng kiến thức khoa học",
+  tech: "thao tác thực hành, sử dụng dụng cụ, thực hiện quy trình",
+  it: "sử dụng máy tính, thao tác phần mềm, kỹ năng tin học",
+  art: "cảm thụ cái đẹp, vẽ, sáng tạo, trình bày sản phẩm",
+  phys: "vận động, rèn luyện thân thể, phối hợp động tác"
+};
 const SUBJECT_TO_COMPETENCY_MAP = {
   'Tiếng Việt': 'lang',
   'Toán': 'math',
@@ -908,7 +916,16 @@ const App = () => {
         } else {
           const list = viewMode === 'quality' ? QUALITY_CRITERIA : (viewMode === 'competency' ? GENERAL_COMPETENCIES : SPECIFIC_COMPETENCIES);
           const details = list.map(c => {
-            const lv = draft[`level_${c.id}`] !== undefined ? draft[`level_${c.id}`] : (d[`level_${c.id}`] || "");
+  const lv = draft[`level_${c.id}`] !== undefined
+    ? draft[`level_${c.id}`]
+    : (d[`level_${c.id}`] || "");
+
+  if (!lv) return null;
+
+  const hint = SPECIFIC_COMPETENCY_HINTS[c.id] || "";
+
+  return `${c.name}: ${lv} (${hint})`;
+}).filter(Boolean).join(", ");
             return lv ? `${c.name}:${lv}` : null;
           }).filter(Boolean).join(", ");
           info = details || "N/A";
@@ -981,11 +998,42 @@ const App = () => {
             comment = comment.replace(new RegExp(`\\b${student.name}\\b`, 'gi'), '');
 
             const d = studentData[student.id] || {};
-            const draft = draftData[student.id] || {};
-            const level = draft.level !== undefined ? draft.level : (d.level || "");
+const draft = draftData[student.id] || {};
 
-            // Xử lý comment với hàm tối ưu
-            comment = processComment(comment, level);
+let finalLevel = "";
+
+if (viewMode === "specific" && systemMode === "smas") {
+
+  const levels = SPECIFIC_COMPETENCIES.map(c =>
+    draft[`level_${c.id}`] !== undefined
+      ? draft[`level_${c.id}`]
+      : (d[`level_${c.id}`] || "")
+  ).filter(Boolean);
+
+  const countT = levels.filter(l => l === "T").length;
+  const countC = levels.filter(l => l === "C").length;
+
+ if (countT >= 5 && countC === 0) {
+
+  finalLevel = "T";
+
+} else if (countC >= 3) {
+
+  finalLevel = "C";
+
+} else {
+
+  finalLevel = "Đ";
+}
+
+} else {
+
+  finalLevel = draft.level !== undefined
+    ? draft.level
+    : (d.level || "");
+}
+
+comment = processComment(comment, finalLevel);
 
             if (comment.length > 10) {
               updates[student.id] = comment;
