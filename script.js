@@ -64,7 +64,20 @@ MỨC ĐÁNH GIÁ (CỰC KỲ QUAN TRỌNG):
 - Mức T: CHỈ khen, KHÔNG chứa "cần/nên/cố gắng/khắc phục/rèn luyện/lưu ý"
 - Mức H/Đ: BẮT BUỘC có (1) Khen + (2) Hướng cải thiện rõ ràng. PHẢI chứa "cần/nên/cố gắng/rèn luyện"
 - Mức C: Nêu vấn đề + cách khắc phục cụ thể
+Nếu là Năng lực đặc thù SMAS, phải nhận xét đúng biểu hiện từng năng lực:
 
+- Ngôn ngữ: đọc, viết, diễn đạt, trình bày ý kiến.
+- Tính toán: tính toán, giải toán, trình bày bài giải.
+- Khoa học: quan sát, tìm hiểu, vận dụng kiến thức.
+- Công nghệ: thao tác thực hành, thực hiện quy trình.
+- Tin học: sử dụng máy tính, thao tác phần mềm.
+- Thẩm mĩ: sáng tạo, cảm thụ, trình bày sản phẩm.
+- Thể chất: vận động, phối hợp động tác, rèn luyện sức khỏe.
+
+Nếu học sinh có nhiều năng lực:
+- phải nhận xét tổng hợp 2 đến 4 năng lực.
+- không chỉ nhận xét 1 năng lực.
+- các học sinh khác nhau phải phân bổ đều 7 năng lực.
 ĐỊNH DẠNG TRẢ VỀ:
 [StudentName]|||[Comment]
 (KHÔNG giải thích, KHÔNG ký tự dư)`,
