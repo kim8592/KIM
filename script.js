@@ -908,10 +908,37 @@ const App = () => {
         } else {
           const list = viewMode === 'quality' ? QUALITY_CRITERIA : (viewMode === 'competency' ? GENERAL_COMPETENCIES : SPECIFIC_COMPETENCIES);
           const details = list.map(c => {
-            const lv = draft[`level_${c.id}`] !== undefined ? draft[`level_${c.id}`] : (d[`level_${c.id}`] || "");
-            return lv ? `${c.name}:${lv}` : null;
-          }).filter(Boolean).join(", ");
-          info = details || "N/A";
+
+  const lv = draft[`level_${c.id}`] !== undefined
+    ? draft[`level_${c.id}`]
+    : (d[`level_${c.id}`] || "");
+
+  if (!lv) return null;
+
+  let hint = "";
+
+  if (systemMode === "smas" && viewMode === "specific") {
+
+    const SPECIFIC_COMPETENCY_HINTS = {
+      lang: "đọc, viết, diễn đạt",
+      math: "tính toán, giải toán",
+      sci: "quan sát, vận dụng kiến thức",
+      tech: "thực hành, thao tác",
+      it: "sử dụng máy tính",
+      art: "sáng tạo, thẩm mĩ",
+      phys: "vận động, thể lực"
+    };
+
+    hint = SPECIFIC_COMPETENCY_HINTS[c.id] || "";
+  }
+
+  return hint
+    ? `${c.name}:${lv} (${hint})`
+    : `${c.name}:${lv}`;
+
+}).filter(Boolean).join(", ");
+
+info = details || "N/A";
         }
         
         const noteText = note ? ` | Ghi chú: ${note}` : "";
@@ -981,11 +1008,37 @@ const App = () => {
             comment = comment.replace(new RegExp(`\\b${student.name}\\b`, 'gi'), '');
 
             const d = studentData[student.id] || {};
-            const draft = draftData[student.id] || {};
-            const level = draft.level !== undefined ? draft.level : (d.level || "");
+const draft = draftData[student.id] || {};
 
-            // Xử lý comment với hàm tối ưu
-            comment = processComment(comment, level);
+let finalLevel = "";
+
+if (systemMode === "smas" && viewMode === "specific") {
+
+  const levels = SPECIFIC_COMPETENCIES.map(c =>
+    draft[`level_${c.id}`] !== undefined
+      ? draft[`level_${c.id}`]
+      : (d[`level_${c.id}`] || "")
+  ).filter(Boolean);
+
+  const countT = levels.filter(x => x === "T").length;
+  const countC = levels.filter(x => x === "C").length;
+
+  if (countT === 7) {
+    finalLevel = "T";
+  } else if (countC >= 3) {
+    finalLevel = "C";
+  } else {
+    finalLevel = "Đ";
+  }
+
+} else {
+
+  finalLevel = draft.level !== undefined
+    ? draft.level
+    : (d.level || "");
+}
+
+comment = processComment(comment, finalLevel);
 
             if (comment.length > 10) {
               updates[student.id] = comment;
