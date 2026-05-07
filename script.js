@@ -940,6 +940,14 @@ const App = () => {
 
   return `${c.name}: ${lv} (${hint})`;
 }).filter(Boolean).join(", ");
+          info = details || "N/A";
+        }
+
+
+  const hint = SPECIFIC_COMPETENCY_HINTS[c.id] || "";
+
+  return `${c.name}: ${lv} (${hint})`;
+}).filter(Boolean).join(", ");
     ? draft[`level_${c.id}`]
     : (d[`level_${c.id}`] || "");
 
