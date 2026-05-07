@@ -72,7 +72,21 @@ MỨC ĐÁNH GIÁ (CỰC KỲ QUAN TRỌNG):
 - Mức T: CHỈ khen, KHÔNG chứa "cần/nên/cố gắng/khắc phục/rèn luyện/lưu ý"
 - Mức H/Đ: BẮT BUỘC có (1) Khen + (2) Hướng cải thiện rõ ràng. PHẢI chứa "cần/nên/cố gắng/rèn luyện"
 - Mức C: Nêu vấn đề + cách khắc phục cụ thể
+Nếu học sinh có nhiều năng lực:
+- phải nhận xét tổng hợp từ nhiều năng lực
+- không chỉ nhận xét 1 năng lực duy nhất
+- ưu tiên ghép 2-4 biểu hiện nổi bật trong cùng câu
 
+Khi nhận xét cả danh sách nhiều học sinh:
+
+- Phải phân bổ đều các năng lực giữa các học sinh.
+- Không lặp lại quá nhiều Ngôn ngữ hoặc Tính toán.
+- Học sinh khác nhau nên ưu tiên năng lực khác nhau.
+- Luân phiên sử dụng:
+Ngôn ngữ, Tính toán, Khoa học, Công nghệ, Tin học, Thẩm mĩ, Thể chất.
+
+Nếu học sinh có mức tốt ở năng lực nào thì ưu tiên nêu năng lực đó.
+Không bỏ sót năng lực nổi bật.
 ĐỊNH DẠNG TRẢ VỀ:
 [StudentName]|||[Comment]
 (KHÔNG giải thích, KHÔNG ký tự dư)`,
