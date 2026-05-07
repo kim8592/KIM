@@ -34,7 +34,15 @@ const SPECIFIC_COMPETENCIES = [
   { id: 'art', name: 'Thẩm mĩ' },
   { id: 'phys', name: 'Thể chất' }
 ];
-
+const SPECIFIC_COMPETENCY_HINTS = {
+  lang: "diễn đạt, đọc hiểu, trình bày ý kiến, dùng từ, viết câu",
+  math: "tính toán, giải toán, nhận biết số, trình bày bài giải",
+  sci: "quan sát, tìm hiểu môi trường, vận dụng kiến thức khoa học",
+  tech: "thao tác thực hành, sử dụng dụng cụ, thực hiện quy trình",
+  it: "sử dụng máy tính, thao tác phần mềm, kỹ năng tin học",
+  art: "cảm thụ cái đẹp, vẽ, sáng tạo, trình bày sản phẩm",
+  phys: "vận động, rèn luyện thân thể, phối hợp động tác"
+};
 const SUBJECT_TO_COMPETENCY_MAP = {
   'Tiếng Việt': 'lang',
   'Toán': 'math',
@@ -59,12 +67,41 @@ LUẬT BẮTBUỘC:
 6. NÊU RÕ kỹ năng, biểu hiện học tập (KHÔNG chung chung).
 7. Tự động sửa lỗi chính tả, ngữ pháp.
 8. Mỗi câu phải tự nhiên như giáo viên thật viết.
+9. Nếu là năng lực đặc thù thì phải nhận xét đúng biểu hiện của năng lực đó.
+
+QUY TẮC NHẬN XÉT NL ĐẶC THÙ:
+- Ngôn ngữ: nhận xét đọc, viết, diễn đạt, trình bày.
+- Tính toán: nhận xét tính toán, giải toán, trình bày bài giải.
+- Khoa học: nhận xét quan sát, tìm hiểu, vận dụng kiến thức.
+- Công nghệ: nhận xét thao tác thực hành, thực hiện quy trình.
+- Tin học: nhận xét sử dụng máy tính, thao tác phần mềm.
+- Thẩm mĩ: nhận xét sáng tạo, cảm thụ, trình bày sản phẩm.
+- Thể chất: nhận xét vận động, phối hợp động tác, rèn luyện sức khỏe.
+
+KHÔNG nhận xét chung chung kiểu:
+"Em học tập tốt"
+"Em có cố gắng"
+nếu không nêu rõ biểu hiện năng lực.
 
 MỨC ĐÁNH GIÁ (CỰC KỲ QUAN TRỌNG):
 - Mức T: CHỈ khen, KHÔNG chứa "cần/nên/cố gắng/khắc phục/rèn luyện/lưu ý"
 - Mức H/Đ: BẮT BUỘC có (1) Khen + (2) Hướng cải thiện rõ ràng. PHẢI chứa "cần/nên/cố gắng/rèn luyện"
 - Mức C: Nêu vấn đề + cách khắc phục cụ thể
+Nếu học sinh có nhiều năng lực:
+- phải nhận xét tổng hợp từ nhiều năng lực
+- không chỉ nhận xét 1 năng lực duy nhất
+- ưu tiên ghép 2-4 biểu hiện nổi bật trong cùng câu
 
+Khi nhận xét cả danh sách nhiều học sinh:
+
+- Phải phân bổ đều các năng lực giữa các học sinh.
+- Không lặp lại quá nhiều Ngôn ngữ hoặc Tính toán.
+- Học sinh khác nhau nên ưu tiên năng lực khác nhau.
+- Luân phiên sử dụng:
+Ngôn ngữ, Tính toán, Khoa học, Công nghệ, Tin học, Thẩm mĩ, Thể chất.
+
+Nếu học sinh có mức tốt ở năng lực nào thì ưu tiên nêu năng lực đó.
+Không bỏ sót năng lực nổi bật.
 ĐỊNH DẠNG TRẢ VỀ:
 [StudentName]|||[Comment]
 (KHÔNG giải thích, KHÔNG ký tự dư)`,
@@ -907,10 +944,17 @@ const App = () => {
           info = `${criteriaName}, Mức: ${lv}`;
         } else {
           const list = viewMode === 'quality' ? QUALITY_CRITERIA : (viewMode === 'competency' ? GENERAL_COMPETENCIES : SPECIFIC_COMPETENCIES);
-          const details = list.map(c => {
-            const lv = draft[`level_${c.id}`] !== undefined ? draft[`level_${c.id}`] : (d[`level_${c.id}`] || "");
-            return lv ? `${c.name}:${lv}` : null;
-          }).filter(Boolean).join(", ");
+         const details = list.map(c => {
+  const lv = draft[`level_${c.id}`] !== undefined
+    ? draft[`level_${c.id}`]
+    : (d[`level_${c.id}`] || "");
+
+  if (!lv) return null;
+
+  const hint = SPECIFIC_COMPETENCY_HINTS[c.id] || "";
+
+  return `${c.name}: ${lv} (${hint})`;
+}).filter(Boolean).join(", ");
           info = details || "N/A";
         }
         
@@ -980,12 +1024,43 @@ const App = () => {
             comment = comment.replace(new RegExp(`^${student.name}[,.\\s]*`, 'gi'), '');
             comment = comment.replace(new RegExp(`\\b${student.name}\\b`, 'gi'), '');
 
-            const d = studentData[student.id] || {};
-            const draft = draftData[student.id] || {};
-            const level = draft.level !== undefined ? draft.level : (d.level || "");
+           const d = studentData[student.id] || {};
+const draft = draftData[student.id] || {};
 
-            // Xử lý comment với hàm tối ưu
-            comment = processComment(comment, level);
+let finalLevel = "";
+
+if (viewMode === "specific" && systemMode === "smas") {
+
+  const levels = SPECIFIC_COMPETENCIES.map(c =>
+    draft[`level_${c.id}`] !== undefined
+      ? draft[`level_${c.id}`]
+      : (d[`level_${c.id}`] || "")
+  ).filter(Boolean);
+
+  const countT = levels.filter(l => l === "T").length;
+  const countC = levels.filter(l => l === "C").length;
+
+  if (countT >= 5 && countC === 0) {
+
+  finalLevel = "T";
+
+} else if (countC >= 3) {
+
+  finalLevel = "C";
+
+} else {
+
+  finalLevel = "Đ";
+}
+
+} else {
+
+  finalLevel = draft.level !== undefined
+    ? draft.level
+    : (d.level || "");
+}
+
+comment = processComment(comment, finalLevel);
 
             if (comment.length > 10) {
               updates[student.id] = comment;
