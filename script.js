@@ -908,7 +908,16 @@ const App = () => {
         } else {
           const list = viewMode === 'quality' ? QUALITY_CRITERIA : (viewMode === 'competency' ? GENERAL_COMPETENCIES : SPECIFIC_COMPETENCIES);
           const details = list.map(c => {
-            const lv = draft[`level_${c.id}`] !== undefined ? draft[`level_${c.id}`] : (d[`level_${c.id}`] || "");
+  const lv = draft[`level_${c.id}`] !== undefined
+    ? draft[`level_${c.id}`]
+    : (d[`level_${c.id}`] || "");
+
+  if (!lv) return null;
+
+  const hint = SPECIFIC_COMPETENCY_HINTS[c.id] || "";
+
+  return `${c.name}: ${lv} (${hint})`;
+}).filter(Boolean).join(", ");
             return lv ? `${c.name}:${lv}` : null;
           }).filter(Boolean).join(", ");
           info = details || "N/A";
