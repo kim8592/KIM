@@ -73,10 +73,11 @@ MỨC ĐÁNH GIÁ (CỰC KỲ QUAN TRỌNG):
 ${aiPrompt || "Không có nội dung"}
 
 YÊU CẦU:
-- Nếu có nhiều ý trong nội dung giáo viên, hãy CHỌN NGẪU NHIÊN 1 ý phù hợp cho mỗi học sinh.
-- Nếu học sinh có ghi chú riêng thì ưu tiên kết hợp ghi chú đó.
-- Mỗi học sinh nhận xét khác nhau, tránh trùng lặp.
-- Giọng văn tích cực, đúng chuẩn giáo viên tiểu học.
+- Chọn ngẫu nhiên nội dung cho từng học sinh.
+- Phân phối xen kẽ giữa các nội dung.
+- Không để 2 học sinh liền nhau cùng một nội dung chính.
+- Nếu học sinh có ghi chú riêng thì kết hợp ghi chú đó.
+- Đúng mức đánh giá của từng học sinh.
 
 DANH SÁCH HỌC SINH:
 ${studentList}
