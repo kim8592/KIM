@@ -54,31 +54,72 @@ LUẬT BẮTBUỘC:
 1. Mỗi nhận xét phải bắt đầu bằng "Em".
 2. TUYỆT ĐỐI KHÔNG nhắc tên học sinh.
 3. KHÔNG dùng: "cô", "thầy", "giáo viên".
-4. Mỗi học sinh nhận xét khác nhau về cách diễn đạt.
+4. Mỗi học sinh nhận xét khác nhau về cách diễn đạt và khác nhau về nội dung.
 5. Không lặp lại nguyên văn câu trước.
-6. NÊU RÕ kỹ năng, biểu hiện học tập (KHÔNG chung chung).
+6. CHỈ nêu kỹ năng, hành động, biểu hiện học tập cụ thể; KHÔNG nói chung chung.
 7. Tự động sửa lỗi chính tả, ngữ pháp.
 8. Mỗi câu phải tự nhiên như giáo viên thật viết.
+9. Ưu tiên câu ngắn gọn, rõ ý, dễ hiểu.
+
+QUY ĐỊNH RẤT QUAN TRỌNG:
+- KHÔNG được ghi tên năng lực như:
+Ngôn ngữ, Tính toán, Khoa học, Công nghệ, Tin học, Thẩm mĩ, Thể chất.
+- Chỉ được chuyển thành biểu hiện thực tế.
+
+Ví dụ chuyển đổi:
+- Ngôn ngữ → đọc trôi chảy, viết đúng chính tả, diễn đạt rõ ràng, mạnh dạn phát biểu.
+- Tính toán → tính nhanh, làm toán đúng, biết trình bày bài giải.
+- Khoa học → biết quan sát, tìm hiểu, vận dụng kiến thức.
+- Công nghệ → thao tác tốt, biết thực hành đúng quy trình.
+- Tin học → sử dụng chuột tốt, gõ phím đúng, thao tác máy tính khá.
+- Thẩm mĩ → vẽ đẹp, sáng tạo, trình bày sạch đẹp.
+- Thể chất → vận động nhanh nhẹn, phối hợp tốt, tích cực rèn luyện.
 
 MỨC ĐÁNH GIÁ (CỰC KỲ QUAN TRỌNG):
-- Mức T: CHỈ khen, KHÔNG chứa "cần/nên/cố gắng/khắc phục/rèn luyện/lưu ý"
-- Mức H/Đ: BẮT BUỘC có (1) Khen + (2) Hướng cải thiện rõ ràng. PHẢI chứa "cần/nên/cố gắng/rèn luyện"
-- Mức C: Nêu vấn đề + cách khắc phục cụ thể
+
+- Mức T:
+Chỉ khen.
+KHÔNG chứa: cần, nên, cố gắng, khắc phục, rèn luyện, lưu ý.
+
+- Mức H/Đ:
+BẮT BUỘC có:
+(1) Khen 1 đến 2 điểm mạnh.
+(2) 1 hướng phát huy hoặc rèn luyện.
+PHẢI chứa từ như:
+cần, nên, tiếp tục, phát huy, rèn luyện.
+
+- Mức C:
+Nêu 1 điểm còn hạn chế chính.
+Kèm 1 cách khắc phục cụ thể.
+Văn phong nhẹ nhàng, động viên.
+
 Nếu học sinh có nhiều năng lực:
-- phải nhận xét tổng hợp từ nhiều năng lực
-- không chỉ nhận xét 1 năng lực duy nhất
-- ưu tiên ghép 2-4 biểu hiện nổi bật trong cùng câu
+
+- Chỉ chọn 1 đến 2 điểm nổi bật để nhận xét.
+- Có thể thêm 1 điểm cần phát huy.
+- KHÔNG liệt kê toàn bộ năng lực.
+- Không chỉ nhận xét 1 ý chung chung.
 
 Khi nhận xét cả danh sách nhiều học sinh:
 
-- Phải phân bổ đều các năng lực giữa các học sinh.
-- Không lặp lại quá nhiều Ngôn ngữ hoặc Tính toán.
-- Học sinh khác nhau nên ưu tiên năng lực khác nhau.
-- Luân phiên sử dụng:
-Ngôn ngữ, Tính toán, Khoa học, Công nghệ, Tin học, Thẩm mĩ, Thể chất.
+- Phải phân bổ đều nội dung giữa các học sinh.
+- Không lặp đi lặp lại đọc tốt hoặc tính toán tốt.
+- Học sinh khác nhau nên có điểm nổi bật khác nhau.
+- Luân phiên các nhóm biểu hiện:
+đọc viết, tính toán, quan sát, thực hành, máy tính, sáng tạo, vận động.
 
-Nếu học sinh có mức tốt ở năng lực nào thì ưu tiên nêu năng lực đó.
-Không bỏ sót năng lực nổi bật.
+Nếu học sinh có mức tốt ở nội dung nào thì ưu tiên nêu nội dung đó.
+Không bỏ sót điểm nổi bật.
+
+Ví dụ đúng:
+Em đọc trôi chảy và tính toán khá nhanh.
+Em sử dụng chuột khá tốt, trình bày bài sạch đẹp.
+Em vận động nhanh nhẹn và cần tự tin hơn khi phát biểu.
+
+Ví dụ sai:
+Em có năng lực Ngôn ngữ tốt.
+Em đạt năng lực Tính toán.
+Em học tốt.
 ĐỊNH DẠNG TRẢ VỀ:
 [StudentName]|||[Comment]
 (KHÔNG giải thích, KHÔNG ký tự dư)`,
