@@ -907,10 +907,30 @@ const App = () => {
           info = `${criteriaName}, Mức: ${lv}`;
         } else {
           const list = viewMode === 'quality' ? QUALITY_CRITERIA : (viewMode === 'competency' ? GENERAL_COMPETENCIES : SPECIFIC_COMPETENCIES);
-          const details = list.map(c => {
-            const lv = draft[`level_${c.id}`] !== undefined ? draft[`level_${c.id}`] : (d[`level_${c.id}`] || "");
-            return lv ? `${c.name}:${lv}` : null;
-          }).filter(Boolean).join(", ");
+          const SPECIFIC_HINTS = {
+  lang: "đọc, viết, diễn đạt",
+  math: "tính toán, giải toán",
+  sci: "quan sát, vận dụng kiến thức",
+  tech: "thực hành, thao tác",
+  it: "sử dụng máy tính",
+  art: "sáng tạo, thẩm mĩ",
+  phys: "vận động, thể lực"
+};
+
+const details = list.map(c => {
+  const lv = draft[`level_${c.id}`] !== undefined
+    ? draft[`level_${c.id}`]
+    : (d[`level_${c.id}`] || "");
+
+  if (!lv) return null;
+
+  const hint =
+    (viewMode === "specific" && systemMode === "smas")
+    ? ` (${SPECIFIC_HINTS[c.id] || ""})`
+    : "";
+
+  return `${c.name}:${lv}${hint}`;
+}).filter(Boolean).join(", ");
           info = details || "N/A";
         }
         
@@ -982,10 +1002,35 @@ const App = () => {
 
             const d = studentData[student.id] || {};
             const draft = draftData[student.id] || {};
-            const level = draft.level !== undefined ? draft.level : (d.level || "");
+            let finalLevel = "";
 
-            // Xử lý comment với hàm tối ưu
-            comment = processComment(comment, level);
+if (viewMode === "specific" && systemMode === "smas") {
+
+  const levels = SPECIFIC_COMPETENCIES.map(c =>
+    draft[`level_${c.id}`] !== undefined
+      ? draft[`level_${c.id}`]
+      : (d[`level_${c.id}`] || "")
+  ).filter(Boolean);
+
+  const countT = levels.filter(x => x === "T").length;
+  const countC = levels.filter(x => x === "C").length;
+
+  if (countT === 7) {
+    finalLevel = "T";
+  } else if (countC >= 3) {
+    finalLevel = "C";
+  } else {
+    finalLevel = "Đ";
+  }
+
+} else {
+
+  finalLevel = draft.level !== undefined
+    ? draft.level
+    : (d.level || "");
+}
+
+comment = processComment(comment, finalLevel);
 
             if (comment.length > 10) {
               updates[student.id] = comment;
