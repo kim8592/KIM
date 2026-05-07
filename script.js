@@ -82,7 +82,7 @@ DANH SÁCH HỌC SINH:
 ${studentList}
 
 Trả về đúng format:
-[StudentName]|||[Comment]`
+[StudentName]|||[Comment]`,
 
   specificCompetencies: `Bạn là giáo viên tiểu học Việt Nam giàu kinh nghiệm. Nhận xét học sinh về 7 năng lực đặc thù với thái độ tích cực, khích lệ.
 LUẬT BẮTBUỘC:
