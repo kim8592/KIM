@@ -1405,7 +1405,7 @@ comment = processComment(comment, level);
   className="relative flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-[11px] font-black uppercase shadow-md cursor-move transition-all hover:scale-105 active:scale-95 overflow-hidden"
 >
   {/* Chữ hiển thị trên nút của App */}
-  <span>✨ Cài Đặt (Kéo thả)</span>
+  <span>Cài Đặt (Kéo thả)</span>
 
   {/* Chữ ẩn giúp trình duyệt nhận diện tên khi kéo vào dấu trang */}
   <span className="absolute opacity-0 pointer-events-none">SMAS TỰ ĐỘNG</span>
