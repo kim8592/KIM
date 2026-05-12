@@ -62,7 +62,8 @@ LUẬT BẮTBUỘC:
 
 MỨC ĐÁNH GIÁ (CỰC KỲ QUAN TRỌNG):
 - Mức T: CHỈ khen, KHÔNG chứa "cần/nên/cố gắng/khắc phục/rèn luyện/lưu ý"
-- Mức H/Đ: BẮT BUỘC có (1) Khen + (2) Hướng cải thiện rõ ràng. PHẢI chứa "cần/nên/cố gắng/rèn luyện"
+- Mức H: BẮT BUỘC có (1) Khen + (2) Hướng cải thiện rõ ràng. PHẢI chứa "cần/nên/cố gắng/rèn luyện"
+- Mức Đ: BẮT BUỘC có (1) Khen + (2) Hướng cải thiện rõ ràng. PHẢI chứa "cần/nên/cố gắng/rèn luyện"
 - Mức C: Nêu vấn đề + cách khắc phục cụ thể
 
 ĐỊNH DẠNG TRẢ VỀ:
