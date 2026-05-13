@@ -1027,7 +1027,7 @@ const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models
     systemInstruction: { parts: [{ text: systemPrompt }] }, // ===== DÙNG PROMPT RIÊNG =====
     generationConfig: { 
       temperature: 0.3,
-      maxOutputTokens: 3500
+      maxOutputTokens: 8000
     }
   })
 });
